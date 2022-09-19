@@ -4,6 +4,7 @@ import SuggestionPage from "./pages/SuggestionPage"
 import HomePage from "./pages/HomePage"
 import NotFoundPage from "./pages/NotFoundPage"
 import AdminLogin from "./pages/AdminLogin"
+import AdminSignUpForm from "./components/AdminSignUpForm"
 import NavBar from "./components/NavBar"
 import Footer from "./components/Footer"
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/suggestions" element={<SuggestionPage />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
+        <Route path="/adminsignup" element={<AdminSignUpForm />} />
         {/* Protected routes below */}
       </Routes>
       <Footer />
