@@ -14,6 +14,7 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
+        {/* Protected routes below */}
       </Routes>
       <Footer />
     </div>
