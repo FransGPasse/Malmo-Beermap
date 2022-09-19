@@ -28,6 +28,7 @@ function SuggestionForm() {
                         Name
                       </label>
                       <input
+                        required
                         type="text"
                         name="name"
                         id="name"
@@ -43,6 +44,7 @@ function SuggestionForm() {
                         Street
                       </label>
                       <input
+                        required
                         type="text"
                         name="street"
                         id="street"
@@ -58,6 +60,7 @@ function SuggestionForm() {
                         Cuisine
                       </label>
                       <input
+                        required
                         type="text"
                         name="cuisine"
                         id="cuisine"
@@ -72,6 +75,7 @@ function SuggestionForm() {
                         Description
                       </label>
                       <textarea
+                        required
                         id="description"
                         className="w-full border border-solid border-gray-300 font-normal"
                       />
@@ -85,6 +89,7 @@ function SuggestionForm() {
                         Type
                       </label>
                       <select
+                        required
                         id="type"
                         name="type"
                         className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
