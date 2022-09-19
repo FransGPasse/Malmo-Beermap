@@ -19,19 +19,35 @@ const NavBar = () => {
         <Menu.Items className="flex flex-col items-center justify-center">
           <Menu.Item>
             {({ active }) => (
-              <div
+              <NavLink
                 className={`${active && "bg-blue-500"}`}
-                as={NavLink}
-                end
-                to="/suggestions"
+                as={Link}
+                to="/"
               >
-                Suggestions
-              </div>
+                Home
+              </NavLink>
             )}
           </Menu.Item>
           <Menu.Item>
             {({ active }) => (
-              <a className={`${active && "bg-blue-500"}`}>About</a>
+              <NavLink
+                className={`${active && "bg-blue-500"}`}
+                as={Link}
+                to="/suggestions"
+              >
+                Suggestions
+              </NavLink>
+            )}
+          </Menu.Item>
+          <Menu.Item>
+            {({ active }) => (
+              <NavLink
+                className={`${active && "bg-blue-500"}`}
+                as={Link}
+                to="/about"
+              >
+                About
+              </NavLink>
             )}
           </Menu.Item>
         </Menu.Items>
