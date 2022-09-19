@@ -1,9 +1,17 @@
+import { Routes, Route } from "react-router-dom"
 import "./assets/index.css"
+import HomePage from "./pages/HomePage"
+import NotFoundPage from "./pages/NotFoundPage"
+import NavBar from "./components/NavBar"
 
 function App() {
   return (
     <div className="App">
-      <h1 className="text-2xl">Hej hej!</h1>
+      <NavBar />
+      <Routes>
+        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/" element={<HomePage />} />
+      </Routes>
     </div>
   )
 }
