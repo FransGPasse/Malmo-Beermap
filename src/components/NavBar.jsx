@@ -7,9 +7,9 @@ const NavBar = () => {
     <Menu>
       {/* Open menu button */}
       <Menu.Button className="fixed top-10 right-10 text-white space-y-2 flex flex-col items-center">
-        <span className="block h-1 w-10 bg-cyan-400 rounded-xl"></span>
-        <span className="block h-1 w-10 bg-cyan-400 rounded-xl"></span>
-        <span className="block h-1 w-10 bg-cyan-400 rounded-xl"></span>
+        <span className="block h-1 w-10 bg-white rounded-xl"></span>
+        <span className="block h-1 w-10 bg-white rounded-xl"></span>
+        <span className="block h-1 w-10 bg-white rounded-xl"></span>
       </Menu.Button>
 
       {/* Use the `Transition` component. */}
@@ -23,8 +23,8 @@ const NavBar = () => {
       >
         {/* Close menu button */}
         <Menu.Button className="absolute top-6 right-5 z-10  text-white space-y-2 flex flex-col items-center p-4">
-          <span className="block h-1 w-12 bg-cyan-400 rounded-xl rotate-45 translate-y-3"></span>
-          <span className="block h-1 w-12 bg-cyan-400 rounded-xl -rotate-45"></span>
+          <span className="block h-1 w-12 bg-white rounded-xl rotate-45 translate-y-3"></span>
+          <span className="block h-1 w-12 bg-white rounded-xl -rotate-45"></span>
         </Menu.Button>
         <Menu.Items className="flex flex-col items-center fixed right-0  bg-gray-800 text-white w-1/2 h-screen md:w-1/3 lg:w-1/4 xl:w-1/6 space-y-24">
           <Menu.Item>
