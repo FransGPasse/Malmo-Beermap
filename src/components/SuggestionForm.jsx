@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import { useEffect } from "react"
 import BeerMapAPI from "../services/BeerMapAPI"
 import { useQuery } from "react-query"
+import { useAuthContext } from "../contexts/AuthContext"
 
 const SuggestionForm = () => {
   const {
@@ -14,28 +15,12 @@ const SuggestionForm = () => {
     reset,
   } = useForm()
 
-  // useEffect(() => {
-  //   BeerMapAPI.getCoordinates()
-  // }, [])
+  //Kontextet för om man är inloggad eller ej
+  const { currentUser } = useAuthContext()
 
+  //Funktionen som körs om en användare inte är inloggad, då skickas resultaten från formulären till fältet "suggestions"
   const onCreateSuggestion = async (data) => {
     const coordinates = await BeerMapAPI.getCoordinates(data.street, data.city)
-    console.log("FROM FORM", coordinates)
-    // const {
-    //   data: bar,
-    //   error,
-    //   isError,
-    //   isLoading,
-    // } = useQuery(["bar"], BeerMapAPI.getCoordinates(data.street, data.city))
-
-    // if (error) {
-    //   console.log(error)
-    //   return
-    // }
-
-    // if (isLoading) {
-    //   console.log("waiting...")
-    // }
 
     await addDoc(collection(db, "suggestions"), {
       name: data.name,
@@ -53,7 +38,29 @@ const SuggestionForm = () => {
       long: coordinates.location.lng,
     })
 
-    console.log("A suggestion has been made")
+    reset()
+  }
+
+  //Funktionen som körs om en användare är inloggad, då skickas resultaten från formulären till fältet "bars"
+  const onCreateBars = async (data) => {
+    const coordinates = await BeerMapAPI.getCoordinates(data.street, data.city)
+
+    await addDoc(collection(db, "bars"), {
+      name: data.name,
+      street: data.street,
+      cuisine: data.cuisine,
+      city: data.city,
+      description: data.description,
+      type: data.type,
+      phone: data.phone,
+      website: data.website,
+      email: data.email,
+      fb: data.fb,
+      insta: data.insta,
+      lat: coordinates.location.lat,
+      long: coordinates.location.lng,
+    })
+
     reset()
   }
 
@@ -75,7 +82,11 @@ const SuggestionForm = () => {
             <form
               action="#"
               method="POST"
-              onSubmit={handleSubmit(onCreateSuggestion)}
+              onSubmit={
+                !currentUser
+                  ? handleSubmit(onCreateSuggestion)
+                  : handleSubmit(onCreateBars)
+              }
             >
               <div className="overflow-hidden shadow sm:rounded-md">
                 <div className="bg-gray-300 px-4 py-5 sm:p-6">
@@ -261,12 +272,21 @@ const SuggestionForm = () => {
                   </div>
                 </div>
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                  <button
-                    type="submit"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    Submit
-                  </button>
+                  {!currentUser ? (
+                    <button
+                      type="submit"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                      Submit
+                    </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                      Submit with Admin rights
+                    </button>
+                  )}
                 </div>
               </div>
             </form>

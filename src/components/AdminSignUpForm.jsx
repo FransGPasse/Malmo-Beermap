@@ -15,7 +15,7 @@ const AdminSignUpForm = () => {
     //Stoppar default-beteendet
     e.preventDefault()
 
-    //Om sätter error till null
+    //Och sätter error till null
     setError(null)
 
     //Försöker signa upp användaren med inputfältens current value

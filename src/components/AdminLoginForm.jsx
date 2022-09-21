@@ -15,7 +15,7 @@ const AdminLoginForm = () => {
     //Stoppar default-beteendet
     e.preventDefault()
 
-    //Om de matchar sätter vi error till null
+    //Och sätter error till null
     setError(null)
 
     //Försöker signa upp användaren med inputfältens current value
