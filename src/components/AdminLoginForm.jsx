@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import { useAuthContext } from "../contexts/AuthContext"
 import { Link, useNavigate } from "react-router-dom"
 
@@ -7,7 +7,7 @@ const AdminLoginForm = () => {
   const passwordRef = useRef()
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
-  const { login } = useAuthContext()
+  const { login, currentUser, logout } = useAuthContext()
   const navigate = useNavigate()
 
   //Funktion som hanterar när vårt formulär submittas
@@ -26,9 +26,6 @@ const AdminLoginForm = () => {
       //Loggar in användaren med värdena från input-referenserna
       await login(emailRef.current.value, passwordRef.current.value)
 
-      /*       //Sätter displayname och foto
-      await setDisplayNameAndPhoto(displayNameRef.current.value, photo) */
-
       //Navigerar till hemskärmen
       navigate("/")
 
@@ -38,6 +35,12 @@ const AdminLoginForm = () => {
       //Enable:ar submit-knappen
       setLoading(false)
     }
+  }
+
+  //Funktion för att logga ut vår användare
+  const logoutUser = async () => {
+    await logout()
+    navigate("/")
   }
 
   return (
@@ -88,17 +91,29 @@ const AdminLoginForm = () => {
                 />
               </div>
             </div>
-            <div className="md:flex md:items-center">
+            <div className="flex items-center">
               <div className="md:w-1/3"></div>
               <div className="md:w-2/3">
-                <button
-                  className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-                  type="button"
-                  onClick={handleSubmit}
-                  disabled={loading}
-                >
-                  Login
-                </button>
+                {!currentUser ? (
+                  <button
+                    className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                    type="button"
+                    onClick={handleSubmit}
+                    disabled={loading}
+                  >
+                    Login
+                  </button>
+                ) : (
+                  <button
+                    className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                    type="button"
+                    onClick={logoutUser}
+                    disabled={loading}
+                  >
+                    Sign out
+                  </button>
+                )}
+
                 <Link
                   className="text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
                   type="button"

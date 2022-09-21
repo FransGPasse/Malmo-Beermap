@@ -19,14 +19,17 @@ const useAuthContext = () => {
 //Själva providern som vi ska wrappa kring appen för att ge den inloggade användaren admin-behörigheter
 const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null)
+  const [userEmail, setUserEmail] = useState(null)
   const [loading, setLoading] = useState(false)
 
   const signup = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password)
   }
+
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
   }
+
   const logout = () => {
     return signOut(auth)
   }
@@ -35,12 +38,23 @@ const AuthContextProvider = ({ children }) => {
     return sendPasswordResetEmail(auth, email)
   }
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user)
+      setUserEmail(user?.email)
+      setLoading(false)
+    })
+
+    return unsubscribe
+  }, [])
+
   const contextValues = {
-    currentUser,
     login,
     logout,
     signup,
     resetPassword,
+    currentUser,
+    userEmail,
   }
 
   return (
