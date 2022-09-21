@@ -1,8 +1,36 @@
 import React from "react"
+import { collection, addDoc, Timestamp } from "firebase/firestore"
+import { db } from "../firebase"
+import { useForm } from "react-hook-form"
 
 function SuggestionForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm()
+
+  const onCreateSuggestion = async (data) => {
+    await addDoc(collection(db, "suggestions"), {
+      name: data.name,
+      street: data.street,
+      cuisine: data.cuisine,
+      description: data.description,
+      type: data.type,
+      phone: data.phone,
+      website: data.website,
+      email: data.email,
+      fb: data.fb,
+      insta: data.insta,
+    })
+
+    console.log("A suggestion has been made")
+    reset()
+  }
+
   return (
-    <div className="flex content-center m-auto w-screen h-screen items-center justify-center">
+    <div className="flex content-center m-auto w-screen h-screen items-center justify-center z-10">
       <div className="mt-10 sm:mt-0">
         <div>
           <div className="md:col-span-1 my-5">
@@ -16,7 +44,11 @@ function SuggestionForm() {
             </div>
           </div>
           <div className="mt-5 md:col-span-2 md:mt-0">
-            <form action="#" method="POST">
+            <form
+              action="#"
+              method="POST"
+              onSubmit={handleSubmit(onCreateSuggestion)}
+            >
               <div className="overflow-hidden shadow sm:rounded-md">
                 <div className="bg-gray-300 px-4 py-5 sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
@@ -28,6 +60,7 @@ function SuggestionForm() {
                         Name
                       </label>
                       <input
+                        {...register("name")}
                         required
                         type="text"
                         name="name"
@@ -44,6 +77,7 @@ function SuggestionForm() {
                         Street
                       </label>
                       <input
+                        {...register("street")}
                         required
                         type="text"
                         name="street"
@@ -60,6 +94,7 @@ function SuggestionForm() {
                         Cuisine
                       </label>
                       <input
+                        {...register("cuisine")}
                         required
                         type="text"
                         name="cuisine"
@@ -75,6 +110,7 @@ function SuggestionForm() {
                         Description
                       </label>
                       <textarea
+                        {...register("description")}
                         required
                         id="description"
                         className="w-full border border-solid border-gray-300 font-normal"
@@ -89,6 +125,7 @@ function SuggestionForm() {
                         Type
                       </label>
                       <select
+                        {...register("type")}
                         required
                         id="type"
                         name="type"
@@ -108,6 +145,7 @@ function SuggestionForm() {
                         Phone
                       </label>
                       <input
+                        {...register("phone")}
                         type="text"
                         name="phone"
                         id="phone"
@@ -122,6 +160,7 @@ function SuggestionForm() {
                         Email
                       </label>
                       <input
+                        {...register("email")}
                         type="email"
                         name="email"
                         id="email"
@@ -137,6 +176,7 @@ function SuggestionForm() {
                         Website
                       </label>
                       <input
+                        {...register("website")}
                         type="url"
                         name="website"
                         id="website"
@@ -152,6 +192,7 @@ function SuggestionForm() {
                         Facebook
                       </label>
                       <input
+                        {...register("fb")}
                         type="text"
                         name="fb"
                         id="fb"
@@ -166,6 +207,7 @@ function SuggestionForm() {
                         Instagram
                       </label>
                       <input
+                        {...register("insta")}
                         type="text"
                         name="insta"
                         id="insta"
