@@ -2,8 +2,11 @@ import React from "react"
 import { collection, addDoc, Timestamp } from "firebase/firestore"
 import { db } from "../firebase"
 import { useForm } from "react-hook-form"
+import { useEffect } from "react"
+import BeerMapAPI from "../services/BeerMapAPI"
+import { useQuery } from "react-query"
 
-function SuggestionForm() {
+const SuggestionForm = () => {
   const {
     register,
     handleSubmit,
@@ -11,7 +14,29 @@ function SuggestionForm() {
     reset,
   } = useForm()
 
+  // useEffect(() => {
+  //   BeerMapAPI.getCoordinates()
+  // }, [])
+
   const onCreateSuggestion = async (data) => {
+    const coordinates = await BeerMapAPI.getCoordinates(data.street, data.city)
+    console.log("FROM FORM", coordinates)
+    // const {
+    //   data: bar,
+    //   error,
+    //   isError,
+    //   isLoading,
+    // } = useQuery(["bar"], BeerMapAPI.getCoordinates(data.street, data.city))
+
+    // if (error) {
+    //   console.log(error)
+    //   return
+    // }
+
+    // if (isLoading) {
+    //   console.log("waiting...")
+    // }
+
     await addDoc(collection(db, "suggestions"), {
       name: data.name,
       street: data.street,
@@ -24,6 +49,8 @@ function SuggestionForm() {
       email: data.email,
       fb: data.fb,
       insta: data.insta,
+      lat: coordinates.location.lat,
+      long: coordinates.location.lng,
     })
 
     console.log("A suggestion has been made")
