@@ -88,13 +88,13 @@ const AdminSignUpForm = () => {
                 />
               </div>
             </div>
-            <div className="md:flex md:items-center">
+            <div className="flex items-center">
               <div className="md:w-1/3"></div>
               <div className="md:w-2/3">
                 <Link
                   className="text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
                   type="button"
-                  to="/adminsignup"
+                  to="/adminlogin"
                 >
                   Login
                 </Link>
