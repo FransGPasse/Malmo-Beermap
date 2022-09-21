@@ -2,8 +2,11 @@ import React from "react"
 import { collection, addDoc, Timestamp } from "firebase/firestore"
 import { db } from "../firebase"
 import { useForm } from "react-hook-form"
+import { useEffect } from "react"
+import BeerMapAPI from "../services/BeerMapAPI"
+import { useQuery } from "react-query"
 
-function SuggestionForm() {
+const SuggestionForm = () => {
   const {
     register,
     handleSubmit,
@@ -11,11 +14,34 @@ function SuggestionForm() {
     reset,
   } = useForm()
 
+  // useEffect(() => {
+  //   BeerMapAPI.getCoordinates()
+  // }, [])
+
   const onCreateSuggestion = async (data) => {
+    const coordinates = await BeerMapAPI.getCoordinates(data.street, data.city)
+    console.log("FROM FORM", coordinates)
+    // const {
+    //   data: bar,
+    //   error,
+    //   isError,
+    //   isLoading,
+    // } = useQuery(["bar"], BeerMapAPI.getCoordinates(data.street, data.city))
+
+    // if (error) {
+    //   console.log(error)
+    //   return
+    // }
+
+    // if (isLoading) {
+    //   console.log("waiting...")
+    // }
+
     await addDoc(collection(db, "suggestions"), {
       name: data.name,
       street: data.street,
       cuisine: data.cuisine,
+      city: data.city,
       description: data.description,
       type: data.type,
       phone: data.phone,
@@ -23,6 +49,8 @@ function SuggestionForm() {
       email: data.email,
       fb: data.fb,
       insta: data.insta,
+      lat: coordinates.location.lat,
+      long: coordinates.location.lng,
     })
 
     console.log("A suggestion has been made")
@@ -86,7 +114,7 @@ function SuggestionForm() {
                       />
                     </div>
 
-                    <div className="col-span-6 sm:col-span-4">
+                    <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="cuisine"
                         className="block text-sm font-medium text-gray-700"
@@ -99,6 +127,22 @@ function SuggestionForm() {
                         type="text"
                         name="cuisine"
                         id="cuisine"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      />
+                    </div>
+                    <div className="col-span-6 sm:col-span-3">
+                      <label
+                        htmlFor="cuisine"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        City
+                      </label>
+                      <input
+                        {...register("city")}
+                        required
+                        type="text"
+                        name="city"
+                        id="city"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
