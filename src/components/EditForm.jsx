@@ -169,9 +169,19 @@ function EditForm(bar) {
                         name="type"
                         className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       >
-                        <option>Chill</option>
-                        <option>Party</option>
-                        <option>AW</option>
+                        <option
+                          selected={bar.bar.type === "Chill" ? true : false}
+                        >
+                          Chill
+                        </option>
+                        <option
+                          selected={bar.bar.type === "Party" ? true : false}
+                        >
+                          Party
+                        </option>
+                        <option selected={bar.bar.type === "AW" ? true : false}>
+                          AW
+                        </option>
                       </select>
                     </div>
 
