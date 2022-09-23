@@ -11,7 +11,7 @@ import EditPage from "./pages/EditPage"
 
 function App() {
   return (
-    <div className="bg-gradient-to-b from-green-300 to-green-700 h-screen">
+    <div className="bg-gradient-to-b from-green-300 to-green-700">
       <NavBar />
       <Routes>
         <Route path="*" element={<NotFoundPage />} />
@@ -19,7 +19,7 @@ function App() {
         <Route path="/suggestions" element={<SuggestionPage />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/adminsignup" element={<AdminSignUpForm />} />
-        <Route path="/edit/:id" element={<EditPage />} />
+        <Route path="/edit/:category/:id" element={<EditPage />} />
         {/* Protected routes below */}
       </Routes>
       <Footer />

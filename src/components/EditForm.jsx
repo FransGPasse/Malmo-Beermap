@@ -3,9 +3,12 @@ import { db } from "../firebase"
 import { useForm } from "react-hook-form"
 import React from "react"
 import { useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 function EditForm(bar) {
   const { id } = useParams()
+  const { category } = useParams()
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -15,7 +18,7 @@ function EditForm(bar) {
 
   const editTheBar = async (data) => {
     //Reference to the current bar
-    const ref = doc(db, "suggestions", id)
+    const ref = doc(db, category, id)
 
     //Check if the input is empty or not, if it is save the old value
     //This will ensure data will not be overwritten på empty fields
@@ -44,6 +47,7 @@ function EditForm(bar) {
     reset()
 
     console.log("The bar is updated! 🍻")
+    navigate("/suggestions")
   }
   return (
     <div className="flex content-center m-auto w-screen h-screen items-center justify-center z-10">
