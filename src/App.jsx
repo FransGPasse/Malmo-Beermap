@@ -7,6 +7,7 @@ import AdminLogin from "./pages/AdminLogin"
 import AdminSignUpForm from "./components/AdminSignUpForm"
 import NavBar from "./components/NavBar"
 import Footer from "./components/Footer"
+import EditPage from "./pages/EditPage"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/suggestions" element={<SuggestionPage />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/adminsignup" element={<AdminSignUpForm />} />
+        <Route path="/edit/:id" element={<EditPage />} />
         {/* Protected routes below */}
       </Routes>
       <Footer />

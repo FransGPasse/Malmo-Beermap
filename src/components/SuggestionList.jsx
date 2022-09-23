@@ -1,14 +1,15 @@
 import React from "react"
 import { useTable, useSortBy } from "react-table"
-import { useMemo } from "react"
 
 function SuggestionList({ columns, data }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data }, useSortBy)
+
   return (
     <div className="flex w-screen h-1/5 justify-center text-left z-10">
-      <table className=" bg-gray-300 rounded" {...getTableProps()}>
-        <thead>
+      <table className=" bg-white rounded m-5" {...getTableProps()}>
+        <thead className="bg-gray-200">
+          {/* Map alla headers from de inhämtade kolumnerna från SuggestionPage */}
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
