@@ -14,21 +14,17 @@ const Footer = () => {
             BeerMap™
           </a>
         </span>
-        <ul className="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
-          <li>
+        <div className="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+          {!currentUser ? (
             <Link as={Link} to="/adminlogin" className="hover:underline">
-              {!currentUser ? (
-                <Link as={Link} to="/adminlogin" className="hover:underline">
-                  <span>Admin</span>
-                </Link>
-              ) : (
-                <Link as={Link} to="/adminlogin" className="hover:underline">
-                  <span>{userEmail}</span>
-                </Link>
-              )}
+              <span>Admin</span>
             </Link>
-          </li>
-        </ul>
+          ) : (
+            <Link as={Link} to="/adminlogin" className="hover:underline">
+              <span>{userEmail}</span>
+            </Link>
+          )}
+        </div>
       </footer>
     </>
   )
