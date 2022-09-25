@@ -7,6 +7,7 @@ import AdminLogin from "./pages/AdminLogin"
 import AdminSignUpForm from "./components/AdminSignUpForm"
 import NavBar from "./components/NavBar"
 import Footer from "./components/Footer"
+import BeerMap from "./components/BeerMap"
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/" element={<HomePage />} />
+        <Route path="/ogbeermap" element={<BeerMap />} />
         <Route path="/suggestions" element={<SuggestionPage />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/adminsignup" element={<AdminSignUpForm />} />
