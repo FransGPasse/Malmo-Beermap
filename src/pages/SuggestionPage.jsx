@@ -1,6 +1,6 @@
 import React from "react"
 import SuggestionForm from "../components/SuggestionForm"
-import useGetAllBars from "../hooks/useGetAllBars"
+import useGetCollection from "../hooks/useGetCollection"
 import SuggestionList from "../components/SuggestionList"
 import BarList from "../components/BarList"
 import { useMemo } from "react"
@@ -13,10 +13,10 @@ function SuggestionPage() {
   //Kontextet för om man är inloggad eller ej
   const { currentUser } = useAuthContext()
   /* Hämtar alla suggestions */
-  const { data: suggestions, loading } = useGetAllBars("suggestions")
+  const { data: suggestions, loading } = useGetCollection("suggestions")
 
   /* Hämtar alla bars */
-  const { data: bars } = useGetAllBars("bars")
+  const { data: bars } = useGetCollection("bars")
 
   //Kolumnerna för react table
   const columns = useMemo(() => {

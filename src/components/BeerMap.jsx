@@ -6,10 +6,10 @@ import {
   InfoWindow,
   MarkerClusterer,
 } from "@react-google-maps/api"
-import getAllBars from "../hooks/useGetAllBars"
-import getSingleBar from "../hooks/useGetSingleBar"
+import getSingleBar from "../hooks/useGetDocument"
 import mapStyles from "../assets/mapStyles"
 import BeerIcon from "../assets/images/beer-icon.png"
+import useGetCollection from "../hooks/useGetCollection"
 
 const options = {
   styles: mapStyles,
@@ -52,7 +52,7 @@ const BeerMap = () => {
   }, [])
 
   /* Hämtar alla barer eller... */
-  const { data: bars, loading } = getAllBars("bars")
+  const { data: bars, loading } = useGetCollection("bars")
 
   /* Mittenpunkten på kartan när den först laddas in */
   const center = useMemo(() => ({ lat: 55.5918775, lng: 13.0078026 }), [])

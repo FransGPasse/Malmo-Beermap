@@ -3,9 +3,8 @@ import { doc, onSnapshot } from "firebase/firestore"
 import { db } from "../firebase"
 
 //Custom hook som tar emot två argument (namnet på en collection i Firebase och ID:t på todo:n som vi får ifrån URL:n)
-const useGetSingleBar = (col, id) => {
-  //!Används inte just nu...
-  /*   //Sätter data-state till null från början
+const useGetDocument = (col, id) => {
+  //Sätter data-state till null från början
   const [data, setData] = useState([])
 
   //...Och loading till true
@@ -26,8 +25,6 @@ const useGetSingleBar = (col, id) => {
       setLoading(false)
     })
 
-    console.log("Här är den enstaka baren", data)
-
     //Och returnerar sedan unsubscribe så fort komponenten unmountats
     return unsubscribe
 
@@ -37,7 +34,7 @@ const useGetSingleBar = (col, id) => {
   return {
     data,
     loading,
-  } */
+  }
 }
 
-export default useGetSingleBar
+export default useGetDocument
