@@ -4,11 +4,23 @@ import { Link, useNavigate } from "react-router-dom"
 
 const AdminSignUpForm = () => {
   const emailRef = useRef()
+  const nameRef = useRef()
   const passwordRef = useRef()
+  const photoRef = useRef()
+  const [photo, setPhoto] = useState(false)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
   const { signup } = useAuthContext()
   const navigate = useNavigate()
+
+  const handleFileChange = (e) => {
+    if (!e.target.files.length) {
+      setPhoto(null)
+      return
+    }
+    setPhoto(e.target.files[0])
+    console.log("Chosen photo", e.target.files[0])
+  }
 
   //Funktion som hanterar när vårt formulär submittas
   const handleSubmit = async (e) => {
@@ -24,7 +36,12 @@ const AdminSignUpForm = () => {
       setLoading(true)
 
       //Signar upp användaren med värdena från input-referenserna
-      await signup(emailRef.current.value, passwordRef.current.value)
+      await signup(
+        emailRef.current.value,
+        passwordRef.current.value,
+        nameRef.current.value,
+        photo
+      )
 
       /*       //Sätter displayname och foto
       await setDisplayNameAndPhoto(displayNameRef.current.value, photo) */
@@ -56,6 +73,25 @@ const AdminSignUpForm = () => {
                   className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                   htmlFor="inline-email"
                 >
+                  Name
+                </label>
+              </div>
+              <div className="md:w-2/3">
+                <input
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  type="text"
+                  placeholder="Name"
+                  ref={nameRef}
+                  required
+                />
+              </div>
+            </div>
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
+                <label
+                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                  htmlFor="inline-email"
+                >
                   Email
                 </label>
               </div>
@@ -66,6 +102,24 @@ const AdminSignUpForm = () => {
                   placeholder="Email"
                   ref={emailRef}
                   required
+                />
+              </div>
+            </div>
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
+                <label
+                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                  htmlFor="inline-email"
+                >
+                  Photo
+                </label>
+              </div>
+              <div className="md:w-2/3">
+                <input
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  type="file"
+                  ref={photoRef}
+                  onChange={handleFileChange}
                 />
               </div>
             </div>
