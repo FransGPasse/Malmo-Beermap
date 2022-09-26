@@ -7,7 +7,7 @@ function SuggestionList({ columns, data }) {
 
   return (
     <div className="flex w-screen h-1/5 justify-center text-left z-10">
-      <table className=" bg-white rounded m-5" {...getTableProps()}>
+      <table className=" bg-white rounded w-screen" {...getTableProps()}>
         <thead className="bg-gray-200">
           {/* Map alla headers from de inhämtade kolumnerna från SuggestionPage */}
           {headerGroups.map((headerGroup) => (

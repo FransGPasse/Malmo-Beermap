@@ -9,8 +9,10 @@ import useGetOneBar from "../hooks/useGetOneBar"
 function EditPage() {
   //Hitta id för vald bar
   const { id } = useParams()
+  const { category } = useParams()
   //Get the data for the chosen bar and send it as a prop to the edit form
-  const { data: bar, loading } = useGetOneBar("suggestions", id)
+  const { data: bar, loading } = useGetOneBar(category, id)
+
   return <EditForm bar={bar}></EditForm>
 }
 
