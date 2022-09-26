@@ -3,7 +3,7 @@ import { collection, onSnapshot, query } from "firebase/firestore"
 import { db } from "../firebase"
 
 //Här har vi vår "realtidsuppdaterare" som lyssnar på ändringar i databasen så länge komponenten som använder den är mountad. Den tar emot referensen till samlingen i databasen samt spreadar de queryConstraints som kommer med, d.v.s sortera efter "title" eller "completed" o.s.v
-const useGetAllBars = (col, ...queryConstraints) => {
+const useGetCollection = (col, ...queryConstraints) => {
   //Sätter data-state till null från början
   const [data, setData] = useState([])
   //...Och loading till true
@@ -44,4 +44,4 @@ const useGetAllBars = (col, ...queryConstraints) => {
   }
 }
 
-export default useGetAllBars
+export default useGetCollection

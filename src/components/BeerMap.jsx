@@ -19,13 +19,21 @@ const options = {
 }
 
 const BeerMap = () => {
+  // här sparas den baren som användaren har klickat på och vill ha mer information om
+  const [selected, setSelected] = useState(null)
+
   /* Hämtar kartan */
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
   })
 
-  // här sparas den baren som användaren har klickat på och vill ha mer information om
-  const [selected, setSelected] = useState(null)
+  // referens till kartan
+  const mapRef = useRef()
+
+  // callback som skickas när kartan laddas, assignas sedan till mapRef för att slippa omladdning av kartan och otrevlig användarupplevelse
+  const onMapLoad = useCallback((map) => {
+    mapRef.current = map
+  }, [])
 
   const onMapClick = useCallback((event) => {
     console.log((current) => [
@@ -37,14 +45,6 @@ const BeerMap = () => {
     ])
   }, [])
 
-  // referens till kartan
-  const mapRef = useRef()
-
-  // callback som skickas när kartan laddas, assignas sedan till mapRef för att slippa omladdning av kartan och otrevlig användarupplevelse
-  const onMapLoad = useCallback((map) => {
-    mapRef.current = map
-  }, [])
-
   // funktionen för att kartan ska gå till det ställe man klickar på när man söker
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng })
@@ -53,8 +53,6 @@ const BeerMap = () => {
 
   /* Hämtar alla barer eller... */
   const { data: bars, loading } = getAllBars("bars")
-
-  console.log("Här är alla barer: ", bars)
 
   /* Mittenpunkten på kartan när den först laddas in */
   const center = useMemo(() => ({ lat: 55.5918775, lng: 13.0078026 }), [])
@@ -80,7 +78,7 @@ const BeerMap = () => {
         {bars.map((marker) => (
           <Marker
             key={marker.name}
-            position={{ lat: marker.lat, lng: marker.long }}
+            position={{ lat: marker.lat, lng: marker.lng }}
             icon={BeerIcon}
             onClick={() => {
               setSelected(marker)
@@ -90,12 +88,7 @@ const BeerMap = () => {
 
         {/* när användaren klickar på en knappnål så kommer en informationsruta upp */}
         {selected ? (
-          <InfoWindow
-            position={{ lat: selected.lat, lng: selected.long }}
-            onCloseClick={() => {
-              setSelected(null)
-            }}
-          >
+          <InfoWindow position={{ lat: selected.lat, lng: selected.lng }}>
             <div>
               <p>{selected.name}</p>
               <p>{selected.description}</p>
@@ -127,7 +120,7 @@ const Locate = ({ panTo }) => {
         )
       }}
     >
-      hitta mig
+      Hitta mig
     </button>
   )
 }
