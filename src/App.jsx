@@ -9,6 +9,7 @@ import NavBar from "./components/NavBar"
 import Footer from "./components/Footer"
 import BeerMap from "./components/BeerMap"
 import EditPage from "./pages/EditPage"
+import BarListPage from "./pages/BarListPage"
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/adminsignup" element={<AdminSignUpForm />} />
         <Route path="/edit/:category/:id" element={<EditPage />} />
+        <Route path="/barlist" element={<BarListPage />} />
         {/* Protected routes below */}
       </Routes>
       <Footer />

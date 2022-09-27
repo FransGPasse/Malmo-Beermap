@@ -6,7 +6,6 @@ import {
   InfoWindow,
   MarkerClusterer,
 } from "@react-google-maps/api"
-import getSingleBar from "../hooks/useGetDocument"
 import mapStyles from "../assets/mapStyles"
 import BeerIcon from "../assets/images/beer-icon.png"
 import useGetCollection from "../hooks/useGetCollection"
@@ -19,9 +18,6 @@ const options = {
 }
 
 const BeerMap = () => {
-  // här sparas den baren som användaren har klickat på och vill ha mer information om
-  const [selected, setSelected] = useState(null)
-
   /* Hämtar kartan */
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
@@ -35,14 +31,12 @@ const BeerMap = () => {
     mapRef.current = map
   }, [])
 
-  const onMapClick = useCallback((event) => {
-    console.log((current) => [
-      ...current,
-      {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-      },
-    ])
+  // här sparas den baren som användaren har klickat på och vill ha mer information om
+  const [selected, setSelected] = useState(null)
+
+  //När man klickar på kartan så sätter vi selected till null vilket slutar visa öppna InfoWindows
+  const onMapClick = useCallback(() => {
+    setSelected(null)
   }, [])
 
   // funktionen för att kartan ska gå till det ställe man klickar på när man söker
@@ -74,25 +68,32 @@ const BeerMap = () => {
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
-        {/* För varje bar mappar vi ut en marker med en ölikon och latituden/longituden från databasen */}
+        {/* För varje bar mappar vi ut en marker med en ölikon på latituden/longituden från databasen */}
         {bars.map((marker) => (
           <Marker
             key={marker.name}
             position={{ lat: marker.lat, lng: marker.lng }}
             icon={BeerIcon}
+            className="p-2"
             onClick={() => {
               setSelected(marker)
             }}
           />
         ))}
 
-        {/* när användaren klickar på en knappnål så kommer en informationsruta upp */}
+        {/* När användaren klickar på en knappnål så kommer en informationsruta upp */}
         {selected ? (
-          <InfoWindow position={{ lat: selected.lat, lng: selected.lng }}>
+          <InfoWindow
+            position={{ lat: selected.lat, lng: selected.lng }}
+            //När vi klickar på krysset för att stänga infofönstret så blir selected null
+            onCloseClick={() => {
+              setSelected(null)
+            }}
+          >
             <div>
-              <p>{selected.name}</p>
+              <p className="text-xl">{selected.name}</p>
+              <p className="italic">{selected.street}</p>
               <p>{selected.description}</p>
-              <p>{selected.street}</p>
             </div>
           </InfoWindow>
         ) : null}

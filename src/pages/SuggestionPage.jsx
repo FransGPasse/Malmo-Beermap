@@ -2,7 +2,7 @@ import React from "react"
 import SuggestionForm from "../components/SuggestionForm"
 import useGetCollection from "../hooks/useGetCollection"
 import SuggestionList from "../components/SuggestionList"
-import BarList from "../components/BarList"
+import BarTable from "../components/BarTable"
 import { useMemo } from "react"
 import { useAuthContext } from "../contexts/AuthContext"
 import { Link } from "react-router-dom"
@@ -178,7 +178,7 @@ function SuggestionPage() {
                   key={2}
                   className="rounded-xring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
                 >
-                  <BarList columns={barColumns} data={bars}></BarList>
+                  <BarTable columns={barColumns} data={bars}></BarTable>
                 </Tab.Panel>
               </Tab.Panels>
             </Tab.Group>

@@ -118,13 +118,26 @@ export default [
       },
     ],
   },
+
+  //Döljer alla markers för Points Of Interests
   {
-    featureType: "poi.business",
-    stylers: [{ visibility: "off" }],
-  },
-  {
-    featureType: "transit",
+    featureType: "poi",
     elementType: "labels.icon",
-    stylers: [{ visibility: "on" }],
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
   },
+
+  //Döljer alla markörer
+  /*   {
+    featureType: "all",
+    elementType: "labels.text",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },, */
 ]
