@@ -6,7 +6,9 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth"
-import { auth, storage } from "../firebase"
+import { auth, db, storage } from "../firebase"
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage"
+import { doc, setDoc } from "firebase/firestore"
 
 //Skapar kontext med hjälp av hooken createContext
 const AuthContext = createContext()
@@ -22,8 +24,40 @@ const AuthContextProvider = ({ children }) => {
   const [userEmail, setUserEmail] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  const signup = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password)
+  const signup = async (email, password, name, photo) => {
+    //Create the user
+    await createUserWithEmailAndPassword(auth, email, password)
+
+    //Upload the photo to storage
+    if (photo) {
+      const fileRef = ref(
+        storage,
+        `profilepictures/${auth.currentUser.email}/${photo.name}`
+      )
+
+      console.log("auth.currentUser", auth.currentUser)
+      console.log("Photo", photo)
+      console.log("fileRef", fileRef)
+      //Upload the profile picture to storage
+      const uploadResult = await uploadBytes(fileRef, photo)
+
+      console.log("uploadResult", uploadResult)
+
+      //Get URL
+      const photoURL = await getDownloadURL(uploadResult.ref)
+      console.log("photoURL", photoURL)
+
+      if (photoURL) {
+        //Create a user document
+        const docRef = doc(db, "users", auth.currentUser.uid)
+        await setDoc(docRef, {
+          name: name,
+          email: email,
+          profilePicture: photoURL,
+          admin: false,
+        })
+      }
+    }
   }
 
   const login = (email, password) => {
