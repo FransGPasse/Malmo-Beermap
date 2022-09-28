@@ -1,8 +1,23 @@
-import React from "react"
+import React, { useState } from "react"
 import { Menu, Transition } from "@headlessui/react"
 import { Link, NavLink } from "react-router-dom"
+import { useAuthContext } from "../contexts/AuthContext"
+import useGetDocument from "../hooks/useGetDocument"
+import { useEffect } from "react"
 
 const NavBar = () => {
+  //Kontextet för om man är inloggad eller ej
+  const { currentUser, loading, info } = useAuthContext()
+  const [loadingInfo, setLoadingInfo] = useState(false)
+  console.log(currentUser)
+  useEffect(() => {
+    if (info) {
+      console.log("INFO FROM NAV", info)
+      console.log("INFO FROM NAV", info.admin)
+      setLoadingInfo(true)
+    }
+  }, [])
+
   return (
     <Menu>
       {/* Open menu button */}
@@ -38,17 +53,19 @@ const NavBar = () => {
               </NavLink>
             )}
           </Menu.Item>
-          <Menu.Item>
-            {({ active }) => (
-              <NavLink
-                className={`${active && "underline"}`}
-                as={Link}
-                to="/suggestions"
-              >
-                Suggestions
-              </NavLink>
-            )}
-          </Menu.Item>
+          {info && (
+            <Menu.Item>
+              {({ active }) => (
+                <NavLink
+                  className={`${active && "underline"}`}
+                  as={Link}
+                  to="/admin"
+                >
+                  Admin
+                </NavLink>
+              )}
+            </Menu.Item>
+          )}
           <Menu.Item>
             {({ active }) => (
               <NavLink

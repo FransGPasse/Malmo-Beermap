@@ -8,7 +8,8 @@ import {
 } from "firebase/auth"
 import { auth, db, storage } from "../firebase"
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage"
-import { doc, setDoc } from "firebase/firestore"
+import { doc, setDoc, getDoc, collection } from "firebase/firestore"
+import useGetDocument from "../hooks/useGetDocument"
 
 //Skapar kontext med hjälp av hooken createContext
 const AuthContext = createContext()
@@ -23,6 +24,7 @@ const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null)
   const [userEmail, setUserEmail] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [info, setInfo] = useState(null)
 
   const signup = async (email, password, name, photo) => {
     //Create the user
@@ -72,11 +74,26 @@ const AuthContextProvider = ({ children }) => {
     return sendPasswordResetEmail(auth, email)
   }
 
+  const getInfo = async (user) => {
+    const docRef = doc(db, "users", user.uid)
+    const docSnap = await getDoc(docRef)
+    if (docSnap.exists()) {
+      setInfo(docSnap.data().admin)
+      console.log("Document data:", docSnap.data().admin)
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!")
+    }
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user)
-      setUserEmail(user?.email)
-      setLoading(false)
+      if (user) {
+        setCurrentUser(user)
+        setUserEmail(user?.email)
+        getInfo(user)
+        setLoading(false)
+      }
     })
 
     return unsubscribe
@@ -86,6 +103,7 @@ const AuthContextProvider = ({ children }) => {
     login,
     logout,
     signup,
+    info,
     resetPassword,
     currentUser,
     userEmail,

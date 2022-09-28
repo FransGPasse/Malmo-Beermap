@@ -6,16 +6,14 @@ function SuggestionList({ columns, data }) {
     useTable({ columns, data }, useSortBy)
 
   return (
-    <div className="flex w-screen h-1/5 justify-center text-left z-10">
-      <table className=" bg-white rounded w-screen" {...getTableProps()}>
+    <div className="overflow-x-scroll rounded-lg">
+      <table className="table-normal bg-white" {...getTableProps()}>
         <thead className="bg-gray-200">
           {/* Map alla headers from de inhämtade kolumnerna från SuggestionPage */}
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th className="p-2" {...column.getHeaderProps()}>
-                  {column.render("Header")}
-                </th>
+                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
               ))}
             </tr>
           ))}
@@ -26,11 +24,7 @@ function SuggestionList({ columns, data }) {
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
-                  return (
-                    <td className="p-2" {...cell.getCellProps()}>
-                      {cell.render("Cell")}
-                    </td>
-                  )
+                  return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                 })}
               </tr>
             )
