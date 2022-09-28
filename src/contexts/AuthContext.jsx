@@ -24,7 +24,7 @@ const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null)
   const [userEmail, setUserEmail] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [info, setInfo] = useState(null)
+  const [admin, setAdmin] = useState(null)
 
   const signup = async (email, password, name, photo) => {
     //Create the user
@@ -78,7 +78,7 @@ const AuthContextProvider = ({ children }) => {
     const docRef = doc(db, "users", user.uid)
     const docSnap = await getDoc(docRef)
     if (docSnap.exists()) {
-      setInfo(docSnap.data().admin)
+      setAdmin(docSnap.data().admin)
       console.log("Document data:", docSnap.data().admin)
     } else {
       // doc.data() will be undefined in this case
@@ -103,7 +103,7 @@ const AuthContextProvider = ({ children }) => {
     login,
     logout,
     signup,
-    info,
+    admin,
     resetPassword,
     currentUser,
     userEmail,

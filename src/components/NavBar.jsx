@@ -7,14 +7,11 @@ import { useEffect } from "react"
 
 const NavBar = () => {
   //Kontextet för om man är inloggad eller ej
-  const { currentUser, loading, info } = useAuthContext()
-  const [loadingInfo, setLoadingInfo] = useState(false)
+  const { currentUser, loading, admin } = useAuthContext()
   console.log(currentUser)
   useEffect(() => {
-    if (info) {
-      console.log("INFO FROM NAV", info)
-      console.log("INFO FROM NAV", info.admin)
-      setLoadingInfo(true)
+    if (admin) {
+      console.log("INFO FROM NAV", admin)
     }
   }, [])
 
@@ -53,7 +50,7 @@ const NavBar = () => {
               </NavLink>
             )}
           </Menu.Item>
-          {info && (
+          {admin && (
             <Menu.Item>
               {({ active }) => (
                 <NavLink
