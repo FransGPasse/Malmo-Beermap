@@ -1,14 +1,20 @@
-import { useEffect, useMemo, useState, useRef, useCallback } from "react"
+import { useMemo, useState, useRef, useCallback } from "react"
+
 import {
   useLoadScript,
   GoogleMap,
   Marker,
-  InfoWindow,
+  InfoWindowF,
   MarkerClusterer,
 } from "@react-google-maps/api"
+
 import mapStyles from "../assets/mapStyles"
 import BeerIcon from "../assets/images/beer-icon.png"
 import useGetCollection from "../hooks/useGetCollection"
+import LocateMe from "./LocateMe"
+import SearchBar from "./SearchBar"
+
+import libraries from "../assets/mapLibraries"
 
 const options = {
   styles: mapStyles,
@@ -21,7 +27,17 @@ const BeerMap = () => {
   /* Hämtar kartan */
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+    libraries,
   })
+
+  /* Hämtar alla barer... */
+  const { data: bars } = useGetCollection("bars")
+
+  /* Mittenpunkten på kartan när den först laddas in */
+  const center = useMemo(() => ({ lat: 55.5918775, lng: 13.0078026 }), [])
+
+  // här sparas den baren som användaren har klickat på och vill ha mer information om
+  const [selected, setSelected] = useState(null)
 
   // referens till kartan
   const mapRef = useRef()
@@ -31,25 +47,16 @@ const BeerMap = () => {
     mapRef.current = map
   }, [])
 
-  // här sparas den baren som användaren har klickat på och vill ha mer information om
-  const [selected, setSelected] = useState(null)
-
   //När man klickar på kartan så sätter vi selected till null vilket slutar visa öppna InfoWindows
-  const onMapClick = useCallback(() => {
+  const onMapClick = () => {
     setSelected(null)
-  }, [])
+  }
 
   // funktionen för att kartan ska gå till det ställe man klickar på när man söker
-  const panTo = useCallback(({ lat, lng }) => {
+  const panToLocation = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng })
-    mapRef.current.setZoom(10)
+    mapRef.current.setZoom(17)
   }, [])
-
-  /* Hämtar alla barer eller... */
-  const { data: bars, loading } = useGetCollection("bars")
-
-  /* Mittenpunkten på kartan när den först laddas in */
-  const center = useMemo(() => ({ lat: 55.5918775, lng: 13.0078026 }), [])
 
   /* Om kartan inte är laddad returnerar vi detta */
   if (!isLoaded) return <h1 className="text-4xl">Loading...</h1>
@@ -57,13 +64,17 @@ const BeerMap = () => {
   /* Om allt laddas korrekt, visa kartan */
   return (
     <>
-      {/* Kartan har en klass, en default inzoomad-nivå, en, options. */}
+      {/* Funktion för att hitta användarens nuvarande position */}
+      <LocateMe myLocation={panToLocation} />
 
-      <Locate panTo={panTo} />
+      {/* Sökfunktion med autocomplete */}
+      <SearchBar searchedLocation={panToLocation} />
+
       <GoogleMap
+        //Kartan har en klass, en default inzoomad-nivå och options.
         zoom={13}
         center={center}
-        mapContainerClassName="h-screen w-screen"
+        mapContainerClassName="w-screen h-screen"
         options={options}
         onClick={onMapClick}
         onLoad={onMapLoad}
@@ -74,7 +85,7 @@ const BeerMap = () => {
             key={marker.name}
             position={{ lat: marker.lat, lng: marker.lng }}
             icon={BeerIcon}
-            className="p-2"
+            animation={2}
             onClick={() => {
               setSelected(marker)
             }}
@@ -83,7 +94,8 @@ const BeerMap = () => {
 
         {/* När användaren klickar på en knappnål så kommer en informationsruta upp */}
         {selected ? (
-          <InfoWindow
+          //InfoWindowF eftersom att vi renderade ett extra, tomt, infowindow annars p.g.a Strict Mode
+          <InfoWindowF
             position={{ lat: selected.lat, lng: selected.lng }}
             //När vi klickar på krysset för att stänga infofönstret så blir selected null
             onCloseClick={() => {
@@ -92,37 +104,13 @@ const BeerMap = () => {
           >
             <div>
               <p className="text-xl">{selected.name}</p>
-              <p className="italic">{selected.street}</p>
+              <p className="italic mb-1">{selected.street}</p>
               <p>{selected.description}</p>
             </div>
-          </InfoWindow>
+          </InfoWindowF>
         ) : null}
       </GoogleMap>
     </>
-  )
-}
-
-const Locate = ({ panTo }) => {
-  return (
-    <button
-      onClick={() => {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            panTo({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            })
-          },
-          () => {
-            console.log(
-              "slå på locations i inställningar, annars har användaren blockat och en toastify kanske"
-            )
-          }
-        )
-      }}
-    >
-      Hitta mig
-    </button>
   )
 }
 
