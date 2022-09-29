@@ -24,12 +24,6 @@ const options = {
   setMap: null,
 }
 
-const mapContainerStyle = {
-  width: "100%",
-  height: "100%",
-  display: "block",
-}
-
 const BeerMap = () => {
   /* Hämtar kartan */
   const { isLoaded } = useLoadScript({
@@ -79,7 +73,6 @@ const BeerMap = () => {
 
       <GoogleMap
         //Kartan har en klass, en default inzoomad-nivå och options.
-        mapContainerStyle={mapContainerStyle}
         zoom={13}
         center={center}
         mapContainerClassName="w-screen h-screen"
