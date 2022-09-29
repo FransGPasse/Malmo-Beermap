@@ -142,12 +142,17 @@ const AdminPage = () => {
   const userColumns = useMemo(() => {
     return [
       {
-        Header: "Username",
-        accessor: "name",
-      },
-      {
         Header: "Profile picture",
         accessor: "profilePicture",
+        Cell: ({ row: { original: profilePicture } }) => (
+          <div className="mask mask-squircle w-14 h-14">
+            <img src={profilePicture.profilePicture} alt="photo" />
+          </div>
+        ),
+      },
+      {
+        Header: "Username",
+        accessor: "name",
       },
       {
         id: "admin",
