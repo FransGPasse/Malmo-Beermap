@@ -8,8 +8,6 @@ import {
   MarkerClusterer,
 } from "@react-google-maps/api"
 
-import React from "react"
-
 import mapStyles from "../assets/mapStyles"
 import BeerIcon from "../assets/images/beer-icon.png"
 import useGetCollection from "../hooks/useGetCollection"
@@ -24,6 +22,12 @@ const options = {
   disableDefaultUI: true,
   zoomControl: true,
   setMap: null,
+}
+
+const mapContainerStyle = {
+  width: "100%",
+  height: "100%",
+  display: "block",
 }
 
 const BeerMap = () => {
@@ -74,6 +78,7 @@ const BeerMap = () => {
 
       <GoogleMap
         //Kartan har en klass, en default inzoomad-nivå och options.
+        mapContainerStyle={mapContainerStyle}
         zoom={13}
         center={center}
         mapContainerClassName="w-screen h-screen"
