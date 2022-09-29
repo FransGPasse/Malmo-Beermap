@@ -150,8 +150,9 @@ const AdminPage = () => {
         accessor: "profilePicture",
       },
       {
+        id: "admin",
         Header: "Admin",
-        accessor: "admin",
+        accessor: (v) => v.admin.toString(),
       },
     ]
   }, [])
