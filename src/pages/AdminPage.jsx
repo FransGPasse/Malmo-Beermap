@@ -1,6 +1,7 @@
 import React from "react"
 import SuggestionForm from "../components/SuggestionForm"
 import useGetCollection from "../hooks/useGetCollection"
+import useGetDocument from "../hooks/useGetDocument"
 import SuggestionList from "../components/SuggestionList"
 import BarTable from "../components/BarTable"
 import { useMemo } from "react"
@@ -8,6 +9,8 @@ import { useAuthContext } from "../contexts/AuthContext"
 import { Link } from "react-router-dom"
 import { Tab } from "@headlessui/react"
 import { useState } from "react"
+import { collection, addDoc, deleteDoc, doc } from "firebase/firestore"
+import { auth, db, storage } from "../firebase"
 
 const AdminPage = () => {
   //Kontextet för om man är inloggad eller ej
@@ -20,7 +23,25 @@ const AdminPage = () => {
 
   /* Hämtar alla användare */
   const { data: users } = useGetCollection("users")
-  console.log("users", users)
+
+  const handleConfirm = (data) => {
+    addDoc(collection(db, "bars"), {
+      name: data.name,
+      street: data.street,
+      cuisine: data.cuisine,
+      city: data.city,
+      description: data.description,
+      type: data.type,
+      phone: data.phone,
+      website: data.website,
+      email: data.email,
+      fb: data.fb,
+      insta: data.insta,
+      lat: data.lat,
+      lng: data.long,
+    })
+    deleteDoc(doc(db, "suggestions", data.id))
+  }
 
   //Kolumnerna för react table
   const columns = useMemo(() => {
@@ -75,6 +96,18 @@ const AdminPage = () => {
         //Länk för att redigera vald restaurang
         Cell: ({ row: { original: suggestion } }) => (
           <Link to={`/edit/suggestions/${suggestion.id}`}>Edit</Link>
+        ),
+      },
+      {
+        Header: "Confirm",
+        //Länk för att redigera vald restaurang
+        Cell: ({ row: { original: suggestion } }) => (
+          <button
+            className="btn btn-success"
+            onClick={() => handleConfirm(suggestion)}
+          >
+            Confirm
+          </button>
         ),
       },
     ]
