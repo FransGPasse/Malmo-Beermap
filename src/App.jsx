@@ -15,7 +15,7 @@ import GoogleBeerMap from "./components/GoogleBeerMap"
 
 function App() {
   return (
-    <div className="bg-gradient-to-b from-green-300 to-green-700">
+    <div>
       <NavBar />
       <Routes>
         <Route path="*" element={<NotFoundPage />} />

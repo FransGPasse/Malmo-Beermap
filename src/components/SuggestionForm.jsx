@@ -2,9 +2,7 @@ import React from "react"
 import { collection, addDoc, Timestamp } from "firebase/firestore"
 import { db } from "../firebase"
 import { useForm } from "react-hook-form"
-import { useEffect } from "react"
 import BeerMapAPI from "../services/BeerMapAPI"
-import { useQuery } from "react-query"
 import { useAuthContext } from "../contexts/AuthContext"
 
 const SuggestionForm = () => {

@@ -26,8 +26,6 @@ const SearchBar = ({ searchedLocation }) => {
   } = usePlacesAutocomplete({
     requestOptions: {
       region: "se",
-      bounds: 500 * 1000,
-      componentRestrictions: true,
     },
   })
 

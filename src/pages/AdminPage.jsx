@@ -3,7 +3,7 @@ import SuggestionForm from "../components/SuggestionForm"
 import useGetCollection from "../hooks/useGetCollection"
 import useGetDocument from "../hooks/useGetDocument"
 import SuggestionList from "../components/SuggestionList"
-import BarTable from "../components/BarTable"
+
 import { useMemo } from "react"
 import { useAuthContext } from "../contexts/AuthContext"
 import { Link } from "react-router-dom"
