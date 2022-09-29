@@ -74,6 +74,17 @@ const NavBar = () => {
               </NavLink>
             )}
           </Menu.Item>
+          <Menu.Item>
+            {({ active }) => (
+              <NavLink
+                className={`${active && "underline"}`}
+                as={Link}
+                to="/suggestions"
+              >
+                Suggest a bar
+              </NavLink>
+            )}
+          </Menu.Item>
         </Menu.Items>
       </Transition>
     </Menu>

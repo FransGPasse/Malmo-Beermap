@@ -11,6 +11,7 @@ import BeerMap from "./components/BeerMap"
 import EditPage from "./pages/EditPage"
 import BarListPage from "./pages/BarListPage"
 import AdminPage from "./pages/AdminPage"
+import RequireAuth from "./components/RequireAuth"
 
 function App() {
   return (
@@ -25,8 +26,15 @@ function App() {
         <Route path="/adminsignup" element={<AdminSignUpForm />} />
         <Route path="/edit/:category/:id" element={<EditPage />} />
         <Route path="/barlist" element={<BarListPage />} />
-        <Route path="/admin" element={<AdminPage />} />
         {/* Protected routes below */}
+        <Route
+          path="/admin"
+          element={
+            <RequireAuth>
+              <AdminPage />
+            </RequireAuth>
+          }
+        />
       </Routes>
       <Footer />
     </div>
