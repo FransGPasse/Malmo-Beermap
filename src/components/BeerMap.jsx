@@ -67,7 +67,6 @@ const BeerMap = () => {
     <>
       {/* Funktion för att hitta användarens nuvarande position */}
       <LocateMe myLocation={panToLocation} />
-
       {/* Funktion för att hitta en sökt position */}
       <SearchBar searchedLocation={panToLocation} />
 

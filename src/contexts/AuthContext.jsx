@@ -87,7 +87,6 @@ const AuthContextProvider = ({ children }) => {
     const docSnap = await getDoc(docRef)
     if (docSnap.exists()) {
       setAdmin(docSnap.data().admin)
-      console.log("Document data:", docSnap.data().admin)
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!")
