@@ -65,6 +65,7 @@ const AdminPage = () => {
       {
         Header: "Description",
         accessor: "description",
+        disableSortBy: true,
       },
       {
         Header: "Type",
@@ -73,6 +74,7 @@ const AdminPage = () => {
       {
         Header: "Phone",
         accessor: "phone",
+        disableSortBy: true,
       },
       {
         Header: "Website",
@@ -135,6 +137,7 @@ const AdminPage = () => {
       {
         Header: "Description",
         accessor: "description",
+        disableSortBy: true,
       },
       {
         Header: "Type",
@@ -143,6 +146,7 @@ const AdminPage = () => {
       {
         Header: "Phone",
         accessor: "phone",
+        disableSortBy: true,
       },
       {
         Header: "Website",
