@@ -59,6 +59,14 @@ const AuthContextProvider = ({ children }) => {
           admin: false,
         })
       }
+    } else {
+      const docRef = doc(db, "users", auth.currentUser.uid)
+      await setDoc(docRef, {
+        name: name,
+        email: email,
+        profilePicture: "",
+        admin: false,
+      })
     }
   }
 
