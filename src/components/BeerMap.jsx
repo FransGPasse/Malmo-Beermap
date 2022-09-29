@@ -8,9 +8,12 @@ import {
   MarkerClusterer,
 } from "@react-google-maps/api"
 
+import React from "react"
+
 import mapStyles from "../assets/mapStyles"
 import BeerIcon from "../assets/images/beer-icon.png"
 import useGetCollection from "../hooks/useGetCollection"
+
 import LocateMe from "./LocateMe"
 import SearchBar from "./SearchBar"
 
@@ -67,7 +70,6 @@ const BeerMap = () => {
       {/* Funktion för att hitta användarens nuvarande position */}
       <LocateMe myLocation={panToLocation} />
 
-      {/* Sökfunktion med autocomplete */}
       <SearchBar searchedLocation={panToLocation} />
 
       <GoogleMap
