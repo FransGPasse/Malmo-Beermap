@@ -1,5 +1,4 @@
 import React from "react"
-import "../assets/mapStyling.css"
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
