@@ -1,4 +1,4 @@
-export default [
+const mapStyles = [
   {
     featureType: "landscape",
     stylers: [
@@ -7,6 +7,15 @@ export default [
       },
       {
         lightness: 60,
+      },
+    ],
+  },
+  {
+    featureType: "landscape.man_made",
+    elementType: "geometry.fill",
+    stylers: [
+      {
+        color: "#ededed",
       },
     ],
   },
@@ -40,7 +49,7 @@ export default [
     elementType: "labels.text",
     stylers: [
       {
-        visibility: "off",
+        visibility: "on",
       },
     ],
   },
@@ -58,7 +67,7 @@ export default [
     elementType: "labels.text",
     stylers: [
       {
-        visibility: "off",
+        visibility: "on",
       },
     ],
   },
@@ -114,7 +123,7 @@ export default [
         lightness: 40,
       },
       {
-        saturation: -40,
+        saturation: 40,
       },
     ],
   },
@@ -122,6 +131,15 @@ export default [
   //Döljer alla markers för Points Of Interests
   {
     featureType: "poi",
+    elementType: "labels.icon",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "transit.station",
     elementType: "labels.icon",
     stylers: [
       {
@@ -141,3 +159,5 @@ export default [
     ],
   },, */
 ]
+
+export default mapStyles
