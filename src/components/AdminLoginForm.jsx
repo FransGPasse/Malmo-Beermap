@@ -41,6 +41,7 @@ const AdminLoginForm = () => {
   const logoutUser = async () => {
     await logout()
     navigate("/")
+    window.location.reload()
   }
 
   return (
