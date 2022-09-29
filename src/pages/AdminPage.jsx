@@ -18,6 +18,10 @@ const AdminPage = () => {
   /* Hämtar alla bars */
   const { data: bars } = useGetCollection("bars")
 
+  /* Hämtar alla användare */
+  const { data: users } = useGetCollection("users")
+  console.log("users", users)
+
   //Kolumnerna för react table
   const columns = useMemo(() => {
     return [
@@ -134,11 +138,29 @@ const AdminPage = () => {
     ]
   }, [])
 
+  //Kolumnerna för react table
+  const userColumns = useMemo(() => {
+    return [
+      {
+        Header: "Username",
+        accessor: "name",
+      },
+      {
+        Header: "Profile picture",
+        accessor: "profilePicture",
+      },
+      {
+        Header: "Admin",
+        accessor: "admin",
+      },
+    ]
+  }, [])
+
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ")
   }
 
-  let [categories] = useState(["Suggestions", "Bars"])
+  let [categories] = useState(["Suggestions", "Bars", "Users"])
 
   return (
     <>
@@ -180,6 +202,15 @@ const AdminPage = () => {
                 <SuggestionList
                   columns={barColumns}
                   data={bars}
+                ></SuggestionList>
+              </Tab.Panel>
+              <Tab.Panel
+                key={3}
+                className="rounded-xring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+              >
+                <SuggestionList
+                  columns={userColumns}
+                  data={users}
                 ></SuggestionList>
               </Tab.Panel>
             </Tab.Panels>

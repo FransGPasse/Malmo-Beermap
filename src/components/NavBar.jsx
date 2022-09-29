@@ -8,7 +8,6 @@ import { useEffect } from "react"
 const NavBar = () => {
   //Kontextet för om man är inloggad eller ej
   const { currentUser, loading, admin } = useAuthContext()
-  console.log(currentUser)
   useEffect(() => {
     if (admin) {
       console.log("INFO FROM NAV", admin)
