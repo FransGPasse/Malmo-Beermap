@@ -1,5 +1,5 @@
-import { useMemo, useState, useRef, useCallback } from "react"
-
+import { useMemo, useState, useRef, useCallback, useEffect } from "react"
+import { ImLocation } from "react-icons/im"
 import {
   useLoadScript,
   GoogleMap,
@@ -25,6 +25,7 @@ const options = {
 }
 
 const BeerMap = () => {
+  const [userLocation, setUserLocation] = useState("")
   /* Hämtar kartan */
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
@@ -55,8 +56,10 @@ const BeerMap = () => {
 
   // funktionen för att kartan ska gå till det ställe man klickar på när man söker
   const panToLocation = useCallback(({ lat, lng }) => {
+    setUserLocation({ lat, lng })
     mapRef.current.panTo({ lat, lng })
     mapRef.current.setZoom(17)
+    console.log("här har vi lat:", lat + " och här har vi lng:", lng)
   }, [])
 
   /* Om kartan inte är laddad returnerar vi detta */
@@ -91,6 +94,10 @@ const BeerMap = () => {
             }}
           />
         ))}
+
+        {userLocation && (
+          <Marker position={{ lat: userLocation.lat, lng: userLocation.lng }} />
+        )}
 
         {/* När användaren klickar på en knappnål så kommer en informationsruta upp */}
         {selected ? (
