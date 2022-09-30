@@ -11,11 +11,13 @@ import {
 import mapStyles from "../assets/mapStyles"
 import BeerIcon from "../assets/images/beer-icon.png"
 import useGetCollection from "../hooks/useGetCollection"
+import BarList from "./BarList"
 
 import LocateMe from "./LocateMe"
 import SearchBar from "./SearchBar"
 
 import libraries from "../assets/mapLibraries"
+import "../assets/BarListStyling.css"
 
 const options = {
   styles: mapStyles,
@@ -25,6 +27,7 @@ const options = {
 }
 
 const BeerMap = () => {
+  const [barListShown, setBarListShown] = useState(false)
   const [userLocation, setUserLocation] = useState("")
   /* Hämtar kartan */
   const { isLoaded } = useLoadScript({
@@ -68,11 +71,34 @@ const BeerMap = () => {
   /* Om allt laddas korrekt, visa kartan */
   return (
     <>
+      <button
+        className="absolute top-20 left-50 z-10  btn btn-primary"
+        onClick={() =>
+          barListShown ? setBarListShown(false) : setBarListShown(true)
+        }
+      >
+        BARLISTAN
+      </button>
+      {/* Ifall barListShown är true */}
+      {barListShown && (
+        <main className="bar-list-popup shadow-md rounded-md">
+          <div className="close-wrapper flex justify-end">
+            <button
+              onClick={() =>
+                barListShown ? setBarListShown(false) : setBarListShown(true)
+              }
+            >
+              close
+            </button>
+          </div>
+          <div className="filter-wrapper"></div>
+          <BarList />
+        </main>
+      )}
       {/* Funktion för att hitta användarens nuvarande position */}
       <LocateMe myLocation={panToLocation} />
       {/* Funktion för att hitta en sökt position */}
       <SearchBar searchedLocation={panToLocation} />
-
       <GoogleMap
         //Kartan har en klass, en default inzoomad-nivå och options.
         zoom={13}

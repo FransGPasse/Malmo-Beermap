@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom"
 import { useAuthContext } from "../contexts/AuthContext"
 import useGetDocument from "../hooks/useGetDocument"
 import { useEffect } from "react"
+import BarList from "./BarList"
 
 const NavBar = () => {
   //Kontextet för om man är inloggad eller ej
@@ -40,6 +41,7 @@ const NavBar = () => {
         </ul>
       </div>
     </div>
+
     // <Menu>
     //   {/* Open menu button */}
     //   <Menu.Button className="fixed top-10 right-10 text-white space-y-2 flex flex-col items-center">

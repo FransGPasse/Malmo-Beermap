@@ -1,0 +1,19 @@
+main {
+  height: 60vh;
+  width: 60vw;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.bar-cards-container {
+  height: 100%;
+  width: 100%;
+}
+
+.bar-card {
+  height: 6rem;
+}

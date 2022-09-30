@@ -1,7 +1,16 @@
 import React from "react"
 import BarCard from "./BarCard"
+import { Listbox, Transition } from "@headlessui/react"
 import useGetCollection from "../hooks/useGetCollection"
+import "../assets/BarListStyling.css"
+import DotLoader from "react-spinners/DotLoader"
 
+const override = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+}
 const BarList = () => {
   /* Hämtar alla barer... */
   const { data, loading } = useGetCollection("bars")
@@ -11,17 +20,19 @@ const BarList = () => {
   }
 
   /* Om det fortfarande laddas returnerar vi detta */
-  if (loading) return <h1 className="text-4xl">Loading...</h1>
+  if (loading) return <DotLoader cssOverride={override} />
 
   return (
-    <div
-      className="grid items-center justify-center col-span-2
-     columns-2 gap-2 lg:col-span-4"
-    >
-      {data.map((bar) => (
-        <BarCard key={bar.id} data={bar} />
-      ))}
-    </div>
+    <>
+      <div className="bar-cards-container overflow-y-scroll">
+        {data.map((bar) => (
+          <div className="bar-card">
+            <p>{bar.name}</p>
+            <p>{bar.city}</p>
+          </div>
+        ))}
+      </div>
+    </>
   )
 }
 
