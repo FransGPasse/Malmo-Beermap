@@ -14,7 +14,7 @@ const LocateMe = ({ myLocation }) => {
         })
       }}
     >
-      <ImLocation className="text-2xl" />
+      Find my location <ImLocation className="text-2xl" />
     </button>
   )
 }
