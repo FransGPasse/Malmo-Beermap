@@ -2,7 +2,7 @@ import BeerMap from "../components/BeerMap"
 
 const HomePage = () => {
   return (
-    <div className="h-screen w-screen flex flex-col m-auto items-center justify-center">
+    <div className="flex flex-col m-auto items-center justify-center overflow-hidden">
       <BeerMap />
     </div>
   )

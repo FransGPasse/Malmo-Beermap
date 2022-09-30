@@ -1,10 +1,10 @@
 import React from "react"
-import SuggestionForm from "../components/SuggestionForm"
+import CreateForm from "../components/CreateForm"
 
 function SuggestionPage() {
   return (
     <>
-      <SuggestionForm></SuggestionForm>
+      <CreateForm id={"suggestion"}></CreateForm>
     </>
   )
 }
