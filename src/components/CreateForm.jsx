@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import BeerMapAPI from "../services/BeerMapAPI"
 import { useAuthContext } from "../contexts/AuthContext"
 
-const SuggestionForm = ({ id }) => {
+const CreateForm = ({ id }) => {
   const {
     register,
     handleSubmit,
@@ -295,4 +295,4 @@ const SuggestionForm = ({ id }) => {
   )
 }
 
-export default SuggestionForm
+export default CreateForm
