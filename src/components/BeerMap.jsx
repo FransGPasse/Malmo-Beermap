@@ -11,11 +11,11 @@ import {
 import mapStyles from "../assets/mapStyles"
 import BeerIcon from "../assets/images/beer-icon.png"
 import useGetCollection from "../hooks/useGetCollection"
-import BarList from "./BarList"
 import { Link, useNavigate } from "react-router-dom"
 
 import LocateMe from "./LocateMe"
 import SearchBar from "./SearchBar"
+import BarList from "./BarList"
 
 import libraries from "../assets/mapLibraries"
 import "../assets/BarListStyling.css"
