@@ -77,7 +77,7 @@ const BeerMap = () => {
         //Kartan har en klass, en default inzoomad-nivå och options.
         zoom={13}
         center={center}
-        mapContainerClassName="w-screen h-screen"
+        mapContainerClassName="w-screen h-screen overflow-hidden"
         options={options}
         onClick={onMapClick}
         onLoad={onMapLoad}
