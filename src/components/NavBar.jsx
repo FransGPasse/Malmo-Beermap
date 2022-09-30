@@ -14,10 +14,10 @@ const NavBar = () => {
   }, [])
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-primary">
       <div className="flex-1">
         <NavLink as={Link} to="/" className="btn btn-ghost normal-case text-xl">
-          BeerMap 🍻
+          Malmö BeerMap 🍻
         </NavLink>
       </div>
       <div className="flex-none">

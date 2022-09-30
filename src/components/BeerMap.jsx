@@ -92,6 +92,7 @@ const BeerMap = () => {
             onClick={() => {
               setSelected(marker)
             }}
+            className="hover:-translate-y-2"
           />
         ))}
 
