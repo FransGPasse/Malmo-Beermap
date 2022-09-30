@@ -260,7 +260,7 @@ const AdminPage = () => {
           </Tab.Group>
         </div>
       )}
-      <SuggestionForm></SuggestionForm>
+      <SuggestionForm id={"create"}></SuggestionForm>
     </>
   )
 }

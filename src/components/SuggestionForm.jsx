@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import BeerMapAPI from "../services/BeerMapAPI"
 import { useAuthContext } from "../contexts/AuthContext"
 
-const SuggestionForm = () => {
+const SuggestionForm = ({ id }) => {
   const {
     register,
     handleSubmit,
@@ -72,7 +72,7 @@ const SuggestionForm = () => {
                 Bar information
               </h3>
               <p className="mt-1 text-sm text-gray-600">
-                You have a suggestion for an awesome bar? Great!
+                Insert the information of the bar in the form below - cheers!
               </p>
             </div>
           </div>
@@ -81,7 +81,7 @@ const SuggestionForm = () => {
               action="#"
               method="POST"
               onSubmit={
-                !currentUser
+                id === "suggestion"
                   ? handleSubmit(onCreateSuggestion)
                   : handleSubmit(onCreateBars)
               }
@@ -270,19 +270,19 @@ const SuggestionForm = () => {
                   </div>
                 </div>
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                  {!currentUser ? (
+                  {id === "suggestion" ? (
                     <button
                       type="submit"
                       className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
-                      Submit
+                      Suggest!
                     </button>
                   ) : (
                     <button
                       type="submit"
                       className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
-                      Submit with Admin rights
+                      Create a restaurant
                     </button>
                   )}
                 </div>

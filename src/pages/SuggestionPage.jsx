@@ -4,7 +4,7 @@ import SuggestionForm from "../components/SuggestionForm"
 function SuggestionPage() {
   return (
     <>
-      <SuggestionForm></SuggestionForm>
+      <SuggestionForm id={"suggestion"}></SuggestionForm>
     </>
   )
 }
