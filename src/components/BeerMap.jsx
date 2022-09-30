@@ -11,6 +11,7 @@ import {
 import mapStyles from "../assets/mapStyles"
 import BeerIcon from "../assets/images/beer-icon.png"
 import useGetCollection from "../hooks/useGetCollection"
+import { Link, useNavigate } from "react-router-dom"
 
 import LocateMe from "./LocateMe"
 import SearchBar from "./SearchBar"
@@ -61,6 +62,7 @@ const BeerMap = () => {
     mapRef.current.setZoom(17)
     console.log("här har vi lat:", lat + " och här har vi lng:", lng)
   }, [])
+  console.log("panToLocation", userLocation)
 
   /* Om kartan inte är laddad returnerar vi detta */
   if (!isLoaded) return <h1 className="text-4xl">Loading...</h1>
@@ -114,6 +116,14 @@ const BeerMap = () => {
               <p className="text-xl">{selected.name}</p>
               <p className="italic mb-1">{selected.street}</p>
               <p>{selected.description}</p>
+              {/* Link to google maps, seems incorrect though */}
+              {/* <a
+                className="text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                type="button"
+                href={`https://www.google.com/maps/dir/${userLocation.lat},${userLocation.lng}/${selected.name},+${selected.street}+${selected.city}`}
+              >
+                Vägbeskrivning
+              </a> */}
             </div>
           </InfoWindowF>
         ) : null}
