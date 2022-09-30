@@ -1,5 +1,5 @@
 import React from "react"
-import SuggestionForm from "../components/SuggestionForm"
+import CreateForm from "../components/CreateForm"
 import useGetCollection from "../hooks/useGetCollection"
 import useGetDocument from "../hooks/useGetDocument"
 import SuggestionList from "../components/SuggestionList"
@@ -38,7 +38,7 @@ const AdminPage = () => {
       fb: data.fb,
       insta: data.insta,
       lat: data.lat,
-      lng: data.long,
+      lng: data.lng,
     })
     deleteDoc(doc(db, "suggestions", data.id))
   }
@@ -260,7 +260,7 @@ const AdminPage = () => {
           </Tab.Group>
         </div>
       )}
-      <SuggestionForm></SuggestionForm>
+      <CreateForm id={"create"}></CreateForm>
     </>
   )
 }
