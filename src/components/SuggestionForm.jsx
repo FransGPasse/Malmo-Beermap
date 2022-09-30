@@ -33,7 +33,7 @@ const SuggestionForm = () => {
       fb: data.fb,
       insta: data.insta,
       lat: coordinates.location.lat,
-      long: coordinates.location.lng,
+      lng: coordinates.location.lng,
     })
 
     reset()

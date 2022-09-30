@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import React from "react"
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
+import BeerMapAPI from "../services/BeerMapAPI"
 
 function EditForm(bar) {
   const { id } = useParams()
@@ -30,6 +31,11 @@ function EditForm(bar) {
       }
     }
 
+    const coordinates = await BeerMapAPI.getCoordinates(
+      giveRightInput(data.street, bar.bar.street),
+      giveRightInput(data.city, bar.bar.city)
+    )
+
     await updateDoc(ref, {
       name: giveRightInput(data.name, bar.bar.name),
       street: giveRightInput(data.street, bar.bar.street),
@@ -42,6 +48,8 @@ function EditForm(bar) {
       email: giveRightInput(data.email, bar.bar.email),
       fb: giveRightInput(data.fb, bar.bar.fb),
       insta: giveRightInput(data.insta, bar.bar.insta),
+      lat: coordinates.location.lat,
+      lng: coordinates.location.lng,
     })
 
     reset()
