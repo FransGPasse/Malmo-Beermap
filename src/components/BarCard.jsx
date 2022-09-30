@@ -12,7 +12,7 @@ const BarCard = (data) => {
         <p className="italic">{data.data.street}</p>
         <p>{data.data.description}</p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Buy Now</button>
+          <button className="btn btn-primary">More info</button>
         </div>
       </div>
     </div>

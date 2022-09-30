@@ -1,6 +1,4 @@
 import React, { useState } from "react"
-import "../assets/navBarStyling.css"
-import { Menu, Transition } from "@headlessui/react"
 import { Link, NavLink } from "react-router-dom"
 import { useAuthContext } from "../contexts/AuthContext"
 import useGetDocument from "../hooks/useGetDocument"
