@@ -2,7 +2,7 @@ import React from "react"
 
 const BarCard = (data) => {
   return (
-    <div className="card w-96 bg-base-100 shadow-xl">
+    <div className="card w-96 bg-primary shadow-xl">
       <figure>
         <img src="https://placeimg.com/400/225/arch" alt="Shoes" />
       </figure>

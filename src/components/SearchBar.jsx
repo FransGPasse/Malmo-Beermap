@@ -55,10 +55,10 @@ const SearchBar = ({ searchedLocation }) => {
           }}
           disabled={!ready}
           placeholder="Search for a bar..."
-          className="rounded-full p-1 text-center bg-base-100"
+          className="rounded-full p-1 text-center bg-primary"
         />
         <ComboboxPopover>
-          <ComboboxList className="bg-base-100 text-center space-y-2">
+          <ComboboxList className="bg-primary text-center space-y-2">
             {status === "OK" &&
               data.map(({ place_id, description }) => (
                 <ComboboxOption
