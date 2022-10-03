@@ -12,6 +12,8 @@ import mapStyles from "../assets/mapStyles"
 import BeerIcon from "../assets/images/beer-icon.png"
 import useGetCollection from "../hooks/useGetCollection"
 import { Link, useNavigate } from "react-router-dom"
+import { AiFillCloseSquare } from "react-icons/ai"
+import { Listbox } from "@headlessui/react"
 
 import LocateMe from "./LocateMe"
 import SearchBar from "./SearchBar"
@@ -38,6 +40,8 @@ const BeerMap = () => {
 
   /* Hämtar alla barer... */
   const { data: bars } = useGetCollection("bars")
+
+  console.log("här är bars: ", bars)
 
   /* Mittenpunkten på kartan när den först laddas in */
   const center = useMemo(() => ({ lat: 55.5918775, lng: 13.0078026 }), [])
@@ -71,10 +75,11 @@ const BeerMap = () => {
   if (!isLoaded) return <h1 className="text-4xl">Loading...</h1>
 
   /* Om allt laddas korrekt, visa kartan */
+
   return (
     <>
       <button
-        className="absolute top-20 left-50 z-10  btn btn-primary"
+        className="absolute top-20 left-50 z-10  btn glass text-black"
         onClick={() =>
           barListShown ? setBarListShown(false) : setBarListShown(true)
         }
@@ -85,15 +90,23 @@ const BeerMap = () => {
       {barListShown && (
         <main className="bar-list-popup shadow-md rounded-md">
           <div className="close-wrapper flex justify-end">
-            <button
+            <AiFillCloseSquare
+              className="w-10 cursor-pointer"
               onClick={() =>
                 barListShown ? setBarListShown(false) : setBarListShown(true)
               }
-            >
-              close
-            </button>
+            />
           </div>
-          <div className="filter-wrapper"></div>
+          <div className="filter-wrapper">
+            <select className="select w-full max-w-xs">
+              <option disabled selected>
+                vilken typ av bar?
+              </option>
+              <option>Chill</option>
+              <option>AW</option>
+              <option>happy hour</option>
+            </select>
+          </div>
           <BarList />
         </main>
       )}
