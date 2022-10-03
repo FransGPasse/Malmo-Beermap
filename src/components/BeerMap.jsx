@@ -1,5 +1,5 @@
 import { useMemo, useState, useRef, useCallback, useEffect } from "react"
-import { ImLocation } from "react-icons/im"
+
 import {
   useLoadScript,
   GoogleMap,
@@ -11,13 +11,17 @@ import {
 import mapStyles from "../assets/mapStyles"
 import BeerIcon from "../assets/images/beer-icon.png"
 import useGetCollection from "../hooks/useGetCollection"
+<<<<<<< HEAD
 import { Link, useNavigate } from "react-router-dom"
 import { AiFillCloseSquare } from "react-icons/ai"
 import { Listbox } from "@headlessui/react"
+=======
+>>>>>>> main
 
 import LocateMe from "./LocateMe"
 import SearchBar from "./SearchBar"
 import BarList from "./BarList"
+import FindDirections from "./FindDirections"
 
 import libraries from "../assets/mapLibraries"
 import "../assets/BarListStyling.css"
@@ -30,8 +34,12 @@ const options = {
 }
 
 const BeerMap = () => {
+  /* State för om barlistan visas eller ej */
   const [barListShown, setBarListShown] = useState(false)
+
+  /* State för användarens position */
   const [userLocation, setUserLocation] = useState("")
+
   /* Hämtar kartan */
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
@@ -67,9 +75,13 @@ const BeerMap = () => {
     setUserLocation({ lat, lng })
     mapRef.current.panTo({ lat, lng })
     mapRef.current.setZoom(17)
-    console.log("här har vi lat:", lat + " och här har vi lng:", lng)
   }, [])
-  console.log("panToLocation", userLocation)
+
+  // funktionen för att kartan ska gå till det ställe man klickar på när man söker
+  const findDirectionsToBar = useCallback(({ lat, lng }) => {
+    setUserLocation({ lat, lng })
+    return userLocation
+  }, [])
 
   /* Om kartan inte är laddad returnerar vi detta */
   if (!isLoaded) return <h1 className="text-4xl">Loading...</h1>
@@ -155,14 +167,8 @@ const BeerMap = () => {
               <p className="text-xl">{selected.name}</p>
               <p className="italic mb-1">{selected.street}</p>
               <p>{selected.description}</p>
-              {/* Link to google maps, seems incorrect though */}
-              {/* <a
-                className="text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
-                type="button"
-                href={`https://www.google.com/maps/dir/${userLocation.lat},${userLocation.lng}/${selected.name},+${selected.street}+${selected.city}`}
-              >
-                Vägbeskrivning
-              </a> */}
+              {/* Funktion för att hitta vägbeskrivning till den valda baren */}
+              <FindDirections bar={selected} />
             </div>
           </InfoWindowF>
         ) : null}
