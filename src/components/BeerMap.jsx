@@ -11,12 +11,9 @@ import {
 import mapStyles from "../assets/mapStyles"
 import BeerIcon from "../assets/images/beer-icon.png"
 import useGetCollection from "../hooks/useGetCollection"
-<<<<<<< HEAD
 import { Link, useNavigate } from "react-router-dom"
 import { AiFillCloseSquare } from "react-icons/ai"
 import { Listbox } from "@headlessui/react"
-=======
->>>>>>> main
 
 import LocateMe from "./LocateMe"
 import SearchBar from "./SearchBar"
