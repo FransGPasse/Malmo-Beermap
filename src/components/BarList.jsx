@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import useGetCollection from "../hooks/useGetCollection"
 import DotLoader from "react-spinners/DotLoader"
 import { collection, query, where, getDocs } from "firebase/firestore"
@@ -13,8 +13,15 @@ const override = {
 
 const BarList = () => {
   const { city } = useAuthContext()
+
   /* Hämtar alla barer... */
-  const { data, loading } = useGetCollection("bars", where("city", "==", city))
+  const { data, loading } = useGetCollection(
+    "bars",
+    //Check if we have a value in city, wich we only get if we searched for an adress
+    //If it's empty get all bars that has a name that is not null, wich is everyone
+    //This will make sure every bar is rendered when we load the page for the first time
+    city ? where("city", "==", city) : where("name", "!=", null)
+  )
 
   /* Om det fortfarande laddas returnerar vi detta */
   if (loading) return <DotLoader cssOverride={override} />
