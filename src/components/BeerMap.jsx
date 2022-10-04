@@ -40,8 +40,6 @@ const BeerMap = () => {
   /* Hämtar alla barer... */
   const { data: bars } = useGetCollection("bars")
 
-  console.log("här är bars: ", bars)
-
   /* Mittenpunkten på kartan när den först laddas in */
   const center = useMemo(() => ({ lat: 55.5918775, lng: 13.0078026 }), [])
 
