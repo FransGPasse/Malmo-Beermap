@@ -1,21 +1,13 @@
 import React, { useState } from "react"
 import { Link, NavLink } from "react-router-dom"
 import { useAuthContext } from "../contexts/AuthContext"
-import useGetDocument from "../hooks/useGetDocument"
-import { useEffect } from "react"
-import BarList from "./BarList"
 
 const NavBar = () => {
   //Kontextet för om man är inloggad eller ej
   const { currentUser, loading, admin } = useAuthContext()
-  useEffect(() => {
-    if (admin) {
-      console.log("INFO FROM NAV", admin)
-    }
-  }, [])
 
   return (
-    <div className="navbar bg-primary">
+    <div className="navbar bg-primary fixed z-10">
       <div className="flex-1">
         <NavLink as={Link} to="/" className="btn btn-ghost normal-case text-xl">
           Malmö BeerMap 🍻

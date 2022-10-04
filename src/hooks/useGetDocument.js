@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { doc, onSnapshot } from "firebase/firestore"
 import { db } from "../firebase"
 
-//Custom hook som tar emot två argument (namnet på en collection i Firebase och ID:t på todo:n som vi får ifrån URL:n)
+//Custom hook som tar emot två argument (namnet på en collection i Firebase och ID:t på dokumentet vi vill hämta)
 const useGetDocument = (col, id) => {
   //Sätter data-state till null från början
   const [data, setData] = useState([])

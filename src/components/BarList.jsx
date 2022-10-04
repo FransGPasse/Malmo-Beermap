@@ -1,6 +1,5 @@
 import React from "react"
 import useGetCollection from "../hooks/useGetCollection"
-import "../assets/BarListStyling.css"
 import DotLoader from "react-spinners/DotLoader"
 
 const override = {
@@ -19,9 +18,9 @@ const BarList = () => {
 
   return (
     <>
-      <div className="bar-cards-container overflow-y-scroll">
+      <div className="h-full w-full overflow-y-scroll">
         {data.map((bar) => (
-          <div className="bar-card" key={bar.id}>
+          <div className="h-24" key={bar.id}>
             <p>{bar.name}</p>
             <p>{bar.city}</p>
           </div>
