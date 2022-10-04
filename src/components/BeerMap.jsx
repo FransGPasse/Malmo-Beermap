@@ -11,9 +11,6 @@ import {
 import mapStyles from "../assets/mapStyles"
 import BeerIcon from "../assets/images/beer-icon.png"
 import useGetCollection from "../hooks/useGetCollection"
-import { Link, useNavigate } from "react-router-dom"
-import { AiFillCloseSquare } from "react-icons/ai"
-import { Listbox } from "@headlessui/react"
 
 import LocateMe from "./LocateMe"
 import SearchBar from "./SearchBar"
@@ -22,9 +19,14 @@ import FindDirections from "./FindDirections"
 
 import { AiFillCloseCircle } from "react-icons/ai"
 
+import { useAuthContext } from "../contexts/AuthContext"
+
 import libraries from "../assets/mapLibraries"
 
 const BeerMap = () => {
+  /* State för den stad som användaren sökt efter eller befinner sig i */
+  const { city } = useAuthContext()
+
   /* State för om barlistan visas eller ej */
   const [barListShown, setBarListShown] = useState(false)
 
@@ -81,8 +83,6 @@ const BeerMap = () => {
   /* Om kartan inte är laddad returnerar vi detta */
   if (!isLoaded) return <h1 className="text-4xl">Loading...</h1>
 
-  /* Om allt laddas korrekt, visa kartan */
-
   return (
     <>
       {/* Om barlistan visas, lägg en div som blurrar kartan */}
@@ -91,7 +91,7 @@ const BeerMap = () => {
       )}
 
       <div className="absolute flex flex-col justify-center items-center top-20 space-y-2 w-full sm:flex-row sm:justify-between sm:px-10 sm:space-y-0">
-        {/* Funktion för att hitta den sökta position */}
+        {/* Funktion och komponent för att hitta den sökta position */}
         <SearchBar searchedLocation={panToSearchedLoaction} />
         <button
           className="z-30 btn btn-primary"
@@ -130,23 +130,43 @@ const BeerMap = () => {
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
-        {/* För varje bar mappar vi ut en marker med en ölikon på latituden/longituden från databasen */}
-        {bars.map((marker) => (
-          <Marker
-            key={marker.name}
-            position={{ lat: marker.lat, lng: marker.lng }}
-            icon={BeerIcon}
-            animation={2}
-            onClick={() => {
-              setSelected(marker)
-            }}
-            className="hover:-translate-y-2"
-          />
-        ))}
-
+        {/* Om vi har vår användares position, sätt ut en vanlig markör där */}
         {userLocation && (
           <Marker position={{ lat: userLocation.lat, lng: userLocation.lng }} />
         )}
+
+        {/* Om city är null (det vill säga om vi inte sökt på något eller hämtat vår position) så mappar vi ut en marker för varje bar med en ölikon på latituden/longituden från databasen */}
+        {!city
+          ? bars.map((marker) => (
+              <Marker
+                key={marker.name}
+                position={{ lat: marker.lat, lng: marker.lng }}
+                icon={BeerIcon}
+                animation={2}
+                onClick={() => {
+                  setSelected(marker)
+                }}
+                className="hover:-translate-y-2"
+              />
+            ))
+          : /* Om city däremot inte är null så filtrerar vi våra markörer efter stadens namn och mappar sedan ut en markör för varje bar i den staden */
+            bars
+              .filter((marker) => marker.city === city)
+              .map((filteredMarker) => (
+                <Marker
+                  key={filteredMarker.name}
+                  position={{
+                    lat: filteredMarker.lat,
+                    lng: filteredMarker.lng,
+                  }}
+                  icon={BeerIcon}
+                  animation={2}
+                  onClick={() => {
+                    setSelected(filteredMarker)
+                  }}
+                  className="hover:-translate-y-2"
+                />
+              ))}
 
         {/* När användaren klickar på en knappnål så kommer en informationsruta upp */}
         {selected ? (
