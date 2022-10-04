@@ -8,8 +8,7 @@ import {
 } from "firebase/auth"
 import { auth, db, storage } from "../firebase"
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage"
-import { doc, setDoc, getDoc, collection } from "firebase/firestore"
-import useGetDocument from "../hooks/useGetDocument"
+import { doc, setDoc, getDoc } from "firebase/firestore"
 
 //Skapar kontext med hjälp av hooken createContext
 const AuthContext = createContext()

@@ -33,7 +33,7 @@ const SearchBar = ({ searchedLocation }) => {
   })
 
   return (
-    <div className="absolute top-20 left-20 z-10 drop-shadow-lg hover:drop-shadow-xl ease-out duration-200">
+    <div className="z-10 drop-shadow-lg hover:drop-shadow-xl ease-out duration-200">
       <Combobox
         onSelect={async (address) => {
           // två raderna nedanför tar bort sökförslagen när användaren klickat på en bar

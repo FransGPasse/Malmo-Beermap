@@ -11,21 +11,18 @@ import {
 import mapStyles from "../assets/mapStyles"
 import BeerIcon from "../assets/images/beer-icon.png"
 import useGetCollection from "../hooks/useGetCollection"
+import { Link, useNavigate } from "react-router-dom"
+import { AiFillCloseSquare } from "react-icons/ai"
+import { Listbox } from "@headlessui/react"
 
 import LocateMe from "./LocateMe"
 import SearchBar from "./SearchBar"
 import BarList from "./BarList"
 import FindDirections from "./FindDirections"
 
-import libraries from "../assets/mapLibraries"
-import "../assets/BarListStyling.css"
+import { AiFillCloseCircle } from "react-icons/ai"
 
-const options = {
-  styles: mapStyles,
-  disableDefaultUI: true,
-  zoomControl: true,
-  setMap: null,
-}
+import libraries from "../assets/mapLibraries"
 
 const BeerMap = () => {
   /* State för om barlistan visas eller ej */
@@ -52,6 +49,12 @@ const BeerMap = () => {
   // referens till kartan
   const mapRef = useRef()
 
+  const options = {
+    styles: mapStyles,
+    disableDefaultUI: true,
+    setMap: null,
+  }
+
   // callback som skickas när kartan laddas, assignas sedan till mapRef för att slippa omladdning av kartan och otrevlig användarupplevelse
   const onMapLoad = useCallback((map) => {
     mapRef.current = map
@@ -63,57 +66,66 @@ const BeerMap = () => {
   }
 
   // funktionen för att kartan ska gå till det ställe man klickar på när man söker
-  const panToLocation = useCallback(({ lat, lng }) => {
-    setUserLocation({ lat, lng })
+  const panToSearchedLoaction = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng })
     mapRef.current.setZoom(17)
   }, [])
 
-  // funktionen för att kartan ska gå till det ställe man klickar på när man söker
-  const findDirectionsToBar = useCallback(({ lat, lng }) => {
+  //Funktion som sätter ut en markör på min position
+  const panToMyLocation = useCallback(({ lat, lng }) => {
     setUserLocation({ lat, lng })
-    return userLocation
+    mapRef.current.panTo({ lat, lng })
+    mapRef.current.setZoom(17)
   }, [])
 
   /* Om kartan inte är laddad returnerar vi detta */
   if (!isLoaded) return <h1 className="text-4xl">Loading...</h1>
 
   /* Om allt laddas korrekt, visa kartan */
+
   return (
     <>
-      <button
-        className="absolute top-20 left-50 z-10  btn btn-primary"
-        onClick={() =>
-          barListShown ? setBarListShown(false) : setBarListShown(true)
-        }
-      >
-        BARLISTAN
-      </button>
-      {/* Ifall barListShown är true */}
+      {/* Om barlistan visas, lägg en div som blurrar kartan */}
       {barListShown && (
-        <main className="bar-list-popup shadow-md rounded-md">
-          <div className="close-wrapper flex justify-end">
+        <div className="fixed h-screen w-screen backdrop-blur-sm z-20 bg-gray-600/10"></div>
+      )}
+
+      <div className="absolute flex flex-col justify-center items-center top-20 space-y-2 w-full sm:flex-row sm:justify-between sm:px-10 sm:space-y-0">
+        {/* Funktion för att hitta den sökta position */}
+        <SearchBar searchedLocation={panToSearchedLoaction} />
+        <button
+          className="z-30 btn btn-primary"
+          onClick={() =>
+            barListShown ? setBarListShown(false) : setBarListShown(true)
+          }
+        >
+          BARLISTAN
+        </button>
+        {/* Ifall barListShown är true */}
+        {barListShown && (
+          <div className="fixed z-30 h-2/3 w-2/3 bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-md rounded-md p-3">
             <button
               onClick={() =>
                 barListShown ? setBarListShown(false) : setBarListShown(true)
               }
+              className="w-full flex justify-end"
             >
-              close
+              <AiFillCloseCircle className="hover:text-primary text-2xl" />
             </button>
+
+            <div className="filter-wrapper"></div>
+            <BarList />
           </div>
-          <div className="filter-wrapper"></div>
-          <BarList />
-        </main>
-      )}
-      {/* Funktion för att hitta användarens nuvarande position */}
-      <LocateMe myLocation={panToLocation} />
-      {/* Funktion för att hitta en sökt position */}
-      <SearchBar searchedLocation={panToLocation} />
+        )}
+        {/* Funktion för att hitta användarens nuvarande position */}
+        <LocateMe myLocation={panToMyLocation} />
+      </div>
+
       <GoogleMap
         //Kartan har en klass, en default inzoomad-nivå och options.
         zoom={13}
         center={center}
-        mapContainerClassName="w-screen h-screen overflow-hidden"
+        mapContainerClassName="w-screen h-screen"
         options={options}
         onClick={onMapClick}
         onLoad={onMapLoad}
