@@ -25,6 +25,8 @@ const AuthContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false)
   const [admin, setAdmin] = useState(null)
 
+  const [city, setCity] = useState(null)
+
   const signup = async (email, password, name, photo) => {
     //Create the user
     await createUserWithEmailAndPassword(auth, email, password)
@@ -113,6 +115,8 @@ const AuthContextProvider = ({ children }) => {
     resetPassword,
     currentUser,
     userEmail,
+    setCity,
+    city,
   }
 
   return (

@@ -12,8 +12,11 @@ import {
   ComboboxOption,
 } from "@reach/combobox"
 import "@reach/combobox/styles.css"
+import BeerMapAPI from "../services/BeerMapAPI"
+import { useAuthContext } from "../contexts/AuthContext"
 
 const SearchBar = ({ searchedLocation }) => {
+  const { setCity } = useAuthContext()
   // ready kollar ifall alla google-scripts är redo, vilket de är genom loadscript
   // value är värdet som användaren håller på att skriva in i sökboxen
   // suggestions är då förslagen baserat på googles api här
@@ -42,6 +45,9 @@ const SearchBar = ({ searchedLocation }) => {
             //Sätter location till första resultatet från sökningen
             const { lat, lng } = getLatLng(results[0])
             searchedLocation({ lat, lng })
+            console.log(lat, lng)
+            const data = await BeerMapAPI.getAddress(lat, lng)
+            setCity(data)
           } catch (error) {
             // kanske en toastify här istället?
             console.log("Error: ", error)

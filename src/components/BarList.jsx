@@ -1,6 +1,8 @@
 import React from "react"
 import useGetCollection from "../hooks/useGetCollection"
 import DotLoader from "react-spinners/DotLoader"
+import { collection, query, where, getDocs } from "firebase/firestore"
+import { useAuthContext } from "../contexts/AuthContext"
 
 const override = {
   position: "absolute",
@@ -10,8 +12,9 @@ const override = {
 }
 
 const BarList = () => {
+  const { city } = useAuthContext()
   /* Hämtar alla barer... */
-  const { data, loading } = useGetCollection("bars")
+  const { data, loading } = useGetCollection("bars", where("city", "==", city))
 
   /* Om det fortfarande laddas returnerar vi detta */
   if (loading) return <DotLoader cssOverride={override} />
