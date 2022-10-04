@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from "react"
 import { useAuthContext } from "../contexts/AuthContext"
 import { Link, useNavigate } from "react-router-dom"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 const AdminLoginForm = () => {
   const emailRef = useRef()
@@ -9,6 +11,29 @@ const AdminLoginForm = () => {
   const [loading, setLoading] = useState(false)
   const { login, currentUser, logout } = useAuthContext()
   const navigate = useNavigate()
+
+  const toastError = () =>
+    toast.error("Something went wrong!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
+
+  const toastSuccess = () => {
+    toast.success("🦄 Wow so easy!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
+  }
 
   //Funktion som hanterar när vårt formulär submittas
   const handleSubmit = async (e) => {
@@ -26,6 +51,8 @@ const AdminLoginForm = () => {
       //Loggar in användaren med värdena från input-referenserna
       await login(emailRef.current.value, passwordRef.current.value)
 
+      toastSuccess()
+
       //Navigerar till hemskärmen
       navigate("/")
 
@@ -34,6 +61,8 @@ const AdminLoginForm = () => {
       setError(err.message)
       //Enable:ar submit-knappen
       setLoading(false)
+
+      toastError()
     }
   }
 
@@ -51,7 +80,7 @@ const AdminLoginForm = () => {
           <h1 className="text-4xl text-center">Log in</h1>
 
           {/* Visar errormeddelandet vid error */}
-          {error && <div className="text-4xl">Error: {error}</div>}
+          {/* {error && <div className="text-4xl">Error: {error}</div>} */}
 
           <form className="w-full max-w-sm">
             <div className="md:flex md:items-center mb-6">
@@ -127,6 +156,7 @@ const AdminLoginForm = () => {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </>
   )
 }

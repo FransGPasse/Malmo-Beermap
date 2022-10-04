@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react"
 import { useAuthContext } from "../contexts/AuthContext"
 import { Link, useNavigate } from "react-router-dom"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 const AdminSignUpForm = () => {
   const emailRef = useRef()
@@ -12,6 +14,29 @@ const AdminSignUpForm = () => {
   const [loading, setLoading] = useState(false)
   const { signup } = useAuthContext()
   const navigate = useNavigate()
+
+  const toastError = () =>
+    toast.error("Something went wrong!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
+
+  const toastSuccess = () => {
+    toast.success("🦄 Wow so easy!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
+  }
 
   const handleFileChange = (e) => {
     if (!e.target.files.length) {
@@ -46,6 +71,8 @@ const AdminSignUpForm = () => {
       /*       //Sätter displayname och foto
       await setDisplayNameAndPhoto(displayNameRef.current.value, photo) */
 
+      toastSuccess()
+
       //Navigerar till hemskärmen
       navigate("/")
 
@@ -54,6 +81,8 @@ const AdminSignUpForm = () => {
       setError(err.message)
       //Enable:ar submit-knappen
       setLoading(false)
+
+      toastError()
     }
   }
 
@@ -165,6 +194,7 @@ const AdminSignUpForm = () => {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </>
   )
 }
