@@ -14,9 +14,11 @@ import {
 import "@reach/combobox/styles.css"
 import BeerMapAPI from "../services/BeerMapAPI"
 import { useAuthContext } from "../contexts/AuthContext"
+import { useSearchParams } from "react-router-dom"
 
 const SearchBar = ({ searchedLocation }) => {
   const { setCity } = useAuthContext()
+  const { setSearchParams } = useAuthContext()
   // ready kollar ifall alla google-scripts är redo, vilket de är genom loadscript
   // value är värdet som användaren håller på att skriva in i sökboxen
   // suggestions är då förslagen baserat på googles api här
@@ -48,6 +50,7 @@ const SearchBar = ({ searchedLocation }) => {
             console.log(lat, lng)
             const data = await BeerMapAPI.getAddress(lat, lng)
             setCity(data)
+            setSearchParams({ lat, lng })
           } catch (error) {
             // kanske en toastify här istället?
             console.log("Error: ", error)

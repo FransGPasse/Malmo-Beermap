@@ -23,8 +23,10 @@ import FindDirections from "./FindDirections"
 import { AiFillCloseCircle } from "react-icons/ai"
 
 import libraries from "../assets/mapLibraries"
+import { useAuthContext } from "../contexts/AuthContext"
 
 const BeerMap = () => {
+  const { searchParams } = useAuthContext()
   /* State för om barlistan visas eller ej */
   const [barListShown, setBarListShown] = useState(false)
 
@@ -40,8 +42,15 @@ const BeerMap = () => {
   /* Hämtar alla barer... */
   const { data: bars } = useGetCollection("bars")
 
+  const latUrl = searchParams.get("lat")
+  const lngUrl = searchParams.get("lng")
+  console.log("URL", latUrl, lngUrl)
+
   /* Mittenpunkten på kartan när den först laddas in */
-  const center = useMemo(() => ({ lat: 55.5918775, lng: 13.0078026 }), [])
+  const center = useMemo(
+    () => ({ lat: Number(latUrl), lng: Number(lngUrl) }),
+    []
+  )
 
   // här sparas den baren som användaren har klickat på och vill ha mer information om
   const [selected, setSelected] = useState(null)

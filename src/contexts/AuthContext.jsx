@@ -9,6 +9,7 @@ import {
 import { auth, db, storage } from "../firebase"
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage"
 import { doc, setDoc, getDoc } from "firebase/firestore"
+import { useSearchParams } from "react-router-dom"
 
 //Skapar kontext med hjälp av hooken createContext
 const AuthContext = createContext()
@@ -26,6 +27,11 @@ const AuthContextProvider = ({ children }) => {
   const [admin, setAdmin] = useState(null)
 
   const [city, setCity] = useState(null)
+
+  let [searchParams, setSearchParams] = useSearchParams({
+    lat: 55.5918775,
+    lng: 13.0078026,
+  })
 
   const signup = async (email, password, name, photo) => {
     //Create the user
@@ -117,6 +123,8 @@ const AuthContextProvider = ({ children }) => {
     userEmail,
     setCity,
     city,
+    setSearchParams,
+    searchParams,
   }
 
   return (
