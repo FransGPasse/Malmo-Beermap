@@ -11,7 +11,6 @@ import EditPage from "./pages/EditPage"
 import BarListPage from "./pages/BarListPage"
 import AdminPage from "./pages/AdminPage"
 import RequireAuth from "./components/RequireAuth"
-import GoogleBeerMap from "./components/GoogleBeerMap"
 import "./assets/fonts.css"
 
 function App() {
@@ -21,7 +20,6 @@ function App() {
       <Routes>
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/" element={<HomePage />} />
-        <Route path="/googlebeermap" element={<GoogleBeerMap />} />
         <Route path="/suggestions" element={<SuggestionPage />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/adminsignup" element={<AdminSignUpForm />} />
