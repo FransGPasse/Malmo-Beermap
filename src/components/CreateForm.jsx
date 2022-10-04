@@ -63,7 +63,7 @@ const CreateForm = ({ id }) => {
   }
 
   return (
-    <div className="flex content-center m-auto w-screen h-screen items-center justify-center z-10">
+    <div className="absolute top-0 flex content-center m-auto w-screen h-screen items-center justify-center -z-10">
       <div className="mt-10 sm:mt-0">
         <div>
           <div className="md:col-span-1 my-5">
@@ -92,7 +92,7 @@ const CreateForm = ({ id }) => {
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="name"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-sm font-medium text-gray-700 pb-1"
                       >
                         Name
                       </label>
@@ -102,14 +102,14 @@ const CreateForm = ({ id }) => {
                         type="text"
                         name="name"
                         id="name"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="input w-full max-w-xs"
                       />
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="street"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-sm font-medium text-gray-700 pb-1"
                       >
                         Street
                       </label>
@@ -119,14 +119,14 @@ const CreateForm = ({ id }) => {
                         type="text"
                         name="street"
                         id="street"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="input w-full max-w-xs"
                       />
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="cuisine"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-sm font-medium text-gray-700 pb-1"
                       >
                         Cuisine
                       </label>
@@ -136,13 +136,13 @@ const CreateForm = ({ id }) => {
                         type="text"
                         name="cuisine"
                         id="cuisine"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="input w-full max-w-xs"
                       />
                     </div>
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="cuisine"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-sm font-medium text-gray-700 pb-1"
                       >
                         City
                       </label>
@@ -152,13 +152,13 @@ const CreateForm = ({ id }) => {
                         type="text"
                         name="city"
                         id="city"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="input w-full max-w-xs"
                       />
                     </div>
                     <div className="col-span-6 sm:col-span-4">
                       <label
                         htmlFor="description"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-sm font-medium text-gray-700 pb-1"
                       >
                         Description
                       </label>
@@ -166,14 +166,14 @@ const CreateForm = ({ id }) => {
                         {...register("description")}
                         required
                         id="description"
-                        className="w-full border border-solid border-gray-300 font-normal"
+                        className="textarea w-max"
                       />
                     </div>
 
                     <div className="col-span-6 sm:col-span-5">
                       <label
                         htmlFor="type"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-sm font-medium text-gray-700 pb-1"
                       >
                         Type
                       </label>
@@ -182,8 +182,11 @@ const CreateForm = ({ id }) => {
                         required
                         id="type"
                         name="type"
-                        className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                        className="select w-full max-w-xs"
                       >
+                        <option disabled selected>
+                          Vad för typ av stämning?
+                        </option>
                         <option>Chill</option>
                         <option>Party</option>
                         <option>AW</option>

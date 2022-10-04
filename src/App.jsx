@@ -12,6 +12,7 @@ import BarListPage from "./pages/BarListPage"
 import AdminPage from "./pages/AdminPage"
 import RequireAuth from "./components/RequireAuth"
 import GoogleBeerMap from "./components/GoogleBeerMap"
+import "./assets/fonts.css"
 
 function App() {
   return (

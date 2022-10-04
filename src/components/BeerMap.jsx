@@ -11,6 +11,9 @@ import {
 import mapStyles from "../assets/mapStyles"
 import BeerIcon from "../assets/images/beer-icon.png"
 import useGetCollection from "../hooks/useGetCollection"
+import { Link, useNavigate } from "react-router-dom"
+import { AiFillCloseSquare } from "react-icons/ai"
+import { Listbox } from "@headlessui/react"
 
 import LocateMe from "./LocateMe"
 import SearchBar from "./SearchBar"
@@ -36,6 +39,8 @@ const BeerMap = () => {
 
   /* Hämtar alla barer... */
   const { data: bars } = useGetCollection("bars")
+
+  console.log("här är bars: ", bars)
 
   /* Mittenpunkten på kartan när den först laddas in */
   const center = useMemo(() => ({ lat: 55.5918775, lng: 13.0078026 }), [])
@@ -79,6 +84,7 @@ const BeerMap = () => {
   if (!isLoaded) return <h1 className="text-4xl">Loading...</h1>
 
   /* Om allt laddas korrekt, visa kartan */
+
   return (
     <>
       {/* Om barlistan visas, lägg en div som blurrar kartan */}
