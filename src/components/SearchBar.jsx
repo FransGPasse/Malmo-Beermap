@@ -17,8 +17,10 @@ import { useAuthContext } from "../contexts/AuthContext"
 import { useSearchParams } from "react-router-dom"
 
 const SearchBar = ({ searchedLocation }) => {
+  /* Sätter det globala "state:t" till staden som vi sökt på. Har man sökt på en adress så sätter vi staden där adressen ligger i som state. */
   const { setCity } = useAuthContext()
   const { setSearchParams } = useAuthContext()
+
   // ready kollar ifall alla google-scripts är redo, vilket de är genom loadscript
   // value är värdet som användaren håller på att skriva in i sökboxen
   // suggestions är då förslagen baserat på googles api här
