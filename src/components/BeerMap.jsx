@@ -1,11 +1,10 @@
-import { useMemo, useState, useRef, useCallback, useEffect } from "react"
+import { useMemo, useState, useRef, useCallback } from "react"
 
 import {
   useLoadScript,
   GoogleMap,
   Marker,
   InfoWindowF,
-  MarkerClusterer,
 } from "@react-google-maps/api"
 
 import mapStyles from "../assets/mapStyles"
@@ -178,11 +177,11 @@ const BeerMap = () => {
               setSelected(null)
             }}
           >
-            <div>
+            <div className="flex flex-col items-center justify-center">
               <p className="text-xl">{selected.name}</p>
               <p className="italic mb-1">{selected.street}</p>
               <p>{selected.description}</p>
-              {/* Funktion för att hitta vägbeskrivning till den valda baren */}
+              {/* Funktionell komponent för att hitta vägbeskrivning till den valda baren */}
               <FindDirections bar={selected} />
             </div>
           </InfoWindowF>
