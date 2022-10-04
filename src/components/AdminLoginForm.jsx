@@ -77,7 +77,7 @@ const AdminLoginForm = () => {
     <>
       <div className="grid place-items-center h-screen">
         <div>
-          <h1 className="text-4xl text-center">Log in</h1>
+          <h1 className="text-4xl text-center mb-4">Log in</h1>
 
           {/* Visar errormeddelandet vid error */}
           {/* {error && <div className="text-4xl">Error: {error}</div>} */}

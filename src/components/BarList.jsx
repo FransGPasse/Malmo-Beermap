@@ -1,8 +1,11 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import useGetCollection from "../hooks/useGetCollection"
+import useFilterBarList from "../hooks/useFilterBarList"
 import DotLoader from "react-spinners/DotLoader"
 import { collection, query, where, getDocs } from "firebase/firestore"
 import { useAuthContext } from "../contexts/AuthContext"
+import { Listbox } from "@headlessui/react"
+import BarListObject from "../components/BarListObject"
 
 const override = {
   position: "absolute",
@@ -12,7 +15,13 @@ const override = {
 }
 
 const BarList = () => {
+  const [option, setOption] = useState()
   const { city } = useAuthContext()
+
+  function handleChange(event) {
+    setOption(event.target.value)
+    console.log(option)
+  }
 
   /* Hämtar alla barer... */
   const { data, loading } = useGetCollection(
@@ -29,12 +38,15 @@ const BarList = () => {
   return (
     <>
       <div className="h-full w-full overflow-y-scroll">
-        {data.map((bar) => (
-          <div className="h-24" key={bar.id}>
-            <p>{bar.name}</p>
-            <p>{bar.city}</p>
-          </div>
-        ))}
+        <select name="option" defaultValue={"DEFAULT"} onChange={handleChange}>
+          <option value="DEFAULT" disabled>
+            tryck för att filtrera pls
+          </option>
+          <option value="highest">highest</option>
+          <option value="lowest">lowest</option>
+        </select>
+
+        <BarListObject data={data} filterObj={option} />
       </div>
     </>
   )
