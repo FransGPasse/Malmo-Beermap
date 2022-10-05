@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import useGetCollection from "../hooks/useGetCollection"
-import useFilterBarList from "../hooks/useFilterBarList"
 import DotLoader from "react-spinners/DotLoader"
-import { collection, query, where, getDocs } from "firebase/firestore"
+import { where } from "firebase/firestore"
 import { useAuthContext } from "../contexts/AuthContext"
-import { Listbox } from "@headlessui/react"
 import BarListObject from "../components/BarListObject"
 
 const override = {
@@ -15,8 +13,9 @@ const override = {
 }
 
 const BarList = () => {
+  const { searchParams } = useAuthContext()
+  const city = searchParams.get("city")
   const [option, setOption] = useState()
-  const { city } = useAuthContext()
 
   function handleChange(event) {
     setOption(event.target.value)
@@ -45,10 +44,10 @@ const BarList = () => {
           onChange={handleChange}
         >
           <option value="DEFAULT" disabled>
-            Sortera
+            Sort alphabetically
           </option>
-          <option value="highest">highest</option>
-          <option value="lowest">lowest</option>
+          <option value="highest">Ö-A</option>
+          <option value="lowest">A-Ö</option>
         </select>
 
         <BarListObject data={data} filterObj={option} />

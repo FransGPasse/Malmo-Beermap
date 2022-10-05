@@ -20,10 +20,11 @@ import { AiFillCloseCircle } from "react-icons/ai"
 
 import libraries from "../assets/mapLibraries"
 import { useAuthContext } from "../contexts/AuthContext"
+import { useSearchParams } from "react-router-dom"
 
 const BeerMap = () => {
-  /* State för den stad som användaren sökt efter eller befinner sig i */
-  const { searchParams, city } = useAuthContext()
+  const { searchParams } = useAuthContext()
+  const city = searchParams.get("city")
 
   /* State för om barlistan visas eller ej */
   const [barListShown, setBarListShown] = useState(false)
@@ -103,7 +104,7 @@ const BeerMap = () => {
             barListShown ? setBarListShown(false) : setBarListShown(true)
           }
         >
-          BARLISTAN
+          LIST OF BARS
         </button>
         {/* Ifall barListShown är true */}
         {barListShown && (
@@ -188,10 +189,10 @@ const BeerMap = () => {
               <FindDirections bar={selected} />
               <div className="collapse collapse-arrow rounded-box">
                 <input type="checkbox" className="peer" />
-                <div className="collapse-title bg-primary text-primary-content peer-checked:bg-primary peer-checked:text-secondary-content text-lg text-center">
+                <div className="collapse-title bg-primary text-accent peer-checked:text-accent peer-checked:bg-primary text-lg text-center">
                   More info
                 </div>
-                <div className="collapse-content bg-primary text-primary-content peer-checked:bg-primary peer-checked:text-secondary-content grid grid-cols-2">
+                <div className="collapse-content bg-primary text-accent peer-checked:bg-primary peer-checked:text-accent grid grid-cols-2">
                   <p>Type: {selected.type}</p>
                   <p>Cuisine: {selected.cuisine}</p>
                   <p>Email: {selected.email}</p>

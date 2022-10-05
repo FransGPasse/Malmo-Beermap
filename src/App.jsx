@@ -8,7 +8,6 @@ import AdminSignUpForm from "./components/AdminSignUpForm"
 import NavBar from "./components/NavBar"
 import Footer from "./components/Footer"
 import EditPage from "./pages/EditPage"
-import BarListPage from "./pages/BarListPage"
 import AdminPage from "./pages/AdminPage"
 import RequireAuth from "./components/RequireAuth"
 import "./assets/fonts.css"
@@ -24,7 +23,6 @@ function App() {
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/adminsignup" element={<AdminSignUpForm />} />
         <Route path="/edit/:category/:id" element={<EditPage />} />
-        <Route path="/barlist" element={<BarListPage />} />
         {/* Protected routes below */}
         <Route
           path="/admin"
