@@ -99,7 +99,7 @@ const BeerMap = () => {
         {/* Funktion och komponent för att hitta den sökta position */}
         <SearchBar searchedLocation={panToSearchedLoaction} />
         <button
-          className="z-30 btn btn-primary"
+          className="z-30 btn btn-accent"
           onClick={() =>
             barListShown ? setBarListShown(false) : setBarListShown(true)
           }
@@ -117,8 +117,6 @@ const BeerMap = () => {
             >
               <AiFillCloseCircle className="hover:text-primary text-2xl" />
             </button>
-
-            <div className="filter-wrapper"></div>
             <BarList />
           </div>
         )}
@@ -189,6 +187,23 @@ const BeerMap = () => {
               <p>{selected.description}</p>
               {/* Funktionell komponent för att hitta vägbeskrivning till den valda baren */}
               <FindDirections bar={selected} />
+              <div className="collapse collapse-arrow rounded-box">
+                <input type="checkbox" className="peer" />
+                <div
+                  className="collapse-title bg-primary text-accent
+peer-checked:text-accent peer-checked:bg-primary text-lg text-center"
+                >
+                  More info
+                </div>
+                <div className="collapse-content bg-primary text-accent peer-checked:bg-primary peer-checked:text-accent grid grid-cols-2">
+                  <p>Type: {selected.type}</p>
+                  <p>Cuisine: {selected.cuisine}</p>
+                  <p>Email: {selected.email}</p>
+                  <p>Facebook: {selected.fb}</p>
+                  <p>Instagram: {selected.insta}</p>
+                  <p>Phone number: {selected.phone}</p>
+                </div>
+              </div>
             </div>
           </InfoWindowF>
         ) : null}

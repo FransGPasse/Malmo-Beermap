@@ -147,17 +147,6 @@ const mapStyles = [
       },
     ],
   },
-
-  //Döljer alla markörer
-  /*   {
-    featureType: "all",
-    elementType: "labels.text",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
-  },, */
 ]
 
 export default mapStyles

@@ -175,7 +175,7 @@ const AdminSignUpForm = () => {
               <div className="md:w-1/3"></div>
               <div className="md:w-2/3">
                 <Link
-                  className="text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                  className="text-accent focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
                   type="button"
                   to="/adminlogin"
                 >

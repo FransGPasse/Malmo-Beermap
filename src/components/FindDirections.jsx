@@ -16,7 +16,7 @@ const FindDirections = ({ bar }) => {
           })
         })
       }}
-      className="btn btn-sm bg-primary m-2"
+      className="btn btn-sm bg-primary text-accent m-2"
     >
       Find directions...
     </button>

@@ -42,17 +42,11 @@ const AuthContextProvider = ({ children }) => {
         `profilepictures/${auth.currentUser.email}/${photo.name}`
       )
 
-      console.log("auth.currentUser", auth.currentUser)
-      console.log("Photo", photo)
-      console.log("fileRef", fileRef)
       //Upload the profile picture to storage
       const uploadResult = await uploadBytes(fileRef, photo)
 
-      console.log("uploadResult", uploadResult)
-
       //Get URL
       const photoURL = await getDownloadURL(uploadResult.ref)
-      console.log("photoURL", photoURL)
 
       if (photoURL) {
         //Create a user document
