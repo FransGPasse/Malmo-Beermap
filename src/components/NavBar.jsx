@@ -9,7 +9,11 @@ const NavBar = () => {
   return (
     <div className="navbar bg-primary fixed z-10">
       <div className="flex-1">
-        <NavLink as={Link} to="/" className="btn btn-ghost normal-case text-xl">
+        <NavLink
+          as={Link}
+          to="/"
+          className="btn btn-ghost normal-case text-xl text-accent"
+        >
           Malmö BeerMap 🍻
         </NavLink>
       </div>
