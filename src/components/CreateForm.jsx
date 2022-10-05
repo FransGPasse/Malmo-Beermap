@@ -102,7 +102,7 @@ const CreateForm = ({ id }) => {
                         type="text"
                         name="name"
                         id="name"
-                        className="input input-bordered w-full max-w-xs"
+                        className="input w-full max-w-xs"
                       />
                     </div>
 

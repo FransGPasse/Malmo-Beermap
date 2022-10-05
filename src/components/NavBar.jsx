@@ -6,7 +6,10 @@ const NavBar = () => {
   return (
     <div className="navbar bg-primary fixed z-50">
       <div className="flex-1">
-        <a href="/" className="btn btn-ghost normal-case text-xl text-accent">
+        <a
+          href="/"
+          className="btn btn-ghost normal-case text-xl text-accent z-50"
+        >
           Malmö BeerMap 🍻
         </a>
       </div>
