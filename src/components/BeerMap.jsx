@@ -116,8 +116,6 @@ const BeerMap = () => {
             >
               <AiFillCloseCircle className="hover:text-primary text-2xl" />
             </button>
-
-            <div className="filter-wrapper"></div>
             <BarList />
           </div>
         )}
