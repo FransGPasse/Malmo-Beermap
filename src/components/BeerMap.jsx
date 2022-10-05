@@ -11,23 +11,18 @@ import mapStyles from "../assets/mapStyles"
 import BeerIcon from "../assets/images/beer-icon.png"
 import useGetCollection from "../hooks/useGetCollection"
 
-import LocateMe from "./LocateMe"
 import SearchBar from "./SearchBar"
-import BarList from "./BarList"
+import BarButton from "./BarButton"
+import LocateMe from "./LocateMe"
 import FindDirections from "./FindDirections"
-
-import { AiFillCloseCircle } from "react-icons/ai"
 
 import libraries from "../assets/mapLibraries"
 import { useAuthContext } from "../contexts/AuthContext"
-import { useSearchParams } from "react-router-dom"
 
 const BeerMap = () => {
-  const { searchParams } = useAuthContext()
-  const city = searchParams.get("city")
+  const { searchParams, barListShown } = useAuthContext()
 
-  /* State för om barlistan visas eller ej */
-  const [barListShown, setBarListShown] = useState(false)
+  const city = searchParams.get("city")
 
   /* State för användarens position */
   const [userLocation, setUserLocation] = useState("")
@@ -92,34 +87,35 @@ const BeerMap = () => {
     <>
       {/* Om barlistan visas, lägg en div som blurrar kartan */}
       {barListShown && (
-        <div className="fixed h-screen w-screen backdrop-blur-sm z-20 bg-gray-600/10"></div>
+        <div className="fixed h-screen w-screen z-40 backdrop-blur-sm bg-gray-600/10"></div>
       )}
 
-      <div className="absolute flex flex-col justify-center items-center top-20 space-y-2 w-full sm:flex-row sm:justify-between sm:px-10 sm:space-y-0">
-        {/* Funktion och komponent för att hitta den sökta position */}
-        <SearchBar searchedLocation={panToSearchedLoaction} />
-        <button
-          className="z-30 btn btn-accent"
-          onClick={() =>
-            barListShown ? setBarListShown(false) : setBarListShown(true)
-          }
-        >
-          LIST OF BARS
-        </button>
-        {/* Ifall barListShown är true */}
-        {barListShown && (
-          <div className="fixed z-30 h-2/3 w-2/3 bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-md rounded-md p-3">
-            <button
-              onClick={() =>
-                barListShown ? setBarListShown(false) : setBarListShown(true)
-              }
-              className="w-full flex justify-end"
+      <div className="absolute flex flex-col justify-between items-center px-10 top-20 w-full sm:grid sm:grid-flow-col sm:items-stretch">
+        <div className="flex flex-col mt-1.5">
+          {/* Funktion och komponent för att hitta den sökta position */}
+          <SearchBar searchedLocation={panToSearchedLoaction} />
+
+          <div className="dropdown dropdown-hover z-20">
+            <label tabIndex={0} className="btn bg-primary m-1">
+              Hover
+            </label>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu p-2 shadow bg-primary rounded-box"
             >
-              <AiFillCloseCircle className="hover:text-primary text-2xl" />
-            </button>
-            <BarList />
+              <li>
+                <a>Item 1</a>
+              </li>
+              <li>
+                <a>Item 2</a>
+              </li>
+            </ul>
           </div>
-        )}
+        </div>
+
+        {/* Funktion och komponent för listan med barer */}
+        <BarButton />
+
         {/* Funktion för att hitta användarens nuvarande position */}
         <LocateMe myLocation={panToMyLocation} />
       </div>

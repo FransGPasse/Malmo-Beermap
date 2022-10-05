@@ -35,8 +35,9 @@ const SearchBar = ({ searchedLocation }) => {
   })
 
   return (
-    <div className="z-10 drop-shadow-lg hover:drop-shadow-xl ease-out duration-200">
+    <div className="z-30 drop-shadow-lg hover:drop-shadow-xl ease-out duration-200">
       <Combobox
+        className="z-30"
         onSelect={async (address) => {
           // två raderna nedanför tar bort sökförslagen när användaren klickat på en bar
           setValue(address, false)
@@ -65,16 +66,16 @@ const SearchBar = ({ searchedLocation }) => {
           }}
           disabled={!ready}
           placeholder="Search for a bar..."
-          className="rounded-full p-1 text-center bg-primary"
+          className="z-30 rounded-full p-1 text-center bg-primary"
         />
-        <ComboboxPopover>
-          <ComboboxList className="bg-primary text-center space-y-2">
+        <ComboboxPopover className="z-30">
+          <ComboboxList className="z-30 bg-primary text-center space-y-2">
             {status === "OK" &&
               data.map(({ place_id, description }) => (
                 <ComboboxOption
                   key={place_id}
                   value={description}
-                  className="hover:outline outline-secondary outline-2"
+                  className="z-30 hover:outline outline-secondary outline-2"
                 />
               ))}
           </ComboboxList>

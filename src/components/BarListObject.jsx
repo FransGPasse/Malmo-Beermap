@@ -5,8 +5,6 @@ const BarListObject = ({ data, filterObj }) => {
   const [filterMethod, setFilterMethod] = useState(filterObj)
   const dataObj = [...data]
 
-  console.log(data)
-
   if (filterObj != filterMethod) {
     setFilterMethod(filterObj)
   }
@@ -22,17 +20,15 @@ const BarListObject = ({ data, filterObj }) => {
   return (
     <>
       {dataObj.map((bar) => (
-        <>
-          <div className="h-24 flex justify-center flex-col" key={bar.id}>
-            <div>
-              <p className="font-bold text-black">{bar.name}</p>
-              <p className="text-black">{bar.city}</p>
-            </div>
-            <div className="flex items-center">
-              <p>{bar.description}</p>
-            </div>
+        <div className="h-24 flex justify-center flex-col" key={bar.id}>
+          <div>
+            <p className="font-bold text-black">{bar.name}</p>
+            <p className="text-black">{bar.city}</p>
           </div>
-        </>
+          <div className="flex items-center">
+            <p>{bar.description}</p>
+          </div>
+        </div>
       ))}
     </>
   )

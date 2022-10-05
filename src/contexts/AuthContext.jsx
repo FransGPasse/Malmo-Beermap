@@ -26,6 +26,9 @@ const AuthContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false)
   const [admin, setAdmin] = useState(null)
 
+  /* State för om barlistan visas eller ej */
+  const [barListShown, setBarListShown] = useState(false)
+
   let [searchParams, setSearchParams] = useSearchParams({
     lat: 55.5918775,
     lng: 13.0078026,
@@ -115,6 +118,8 @@ const AuthContextProvider = ({ children }) => {
     userEmail,
     setSearchParams,
     searchParams,
+    barListShown,
+    setBarListShown,
   }
 
   return (
