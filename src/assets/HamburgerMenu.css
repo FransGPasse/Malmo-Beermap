@@ -20,9 +20,3 @@
   z-index: 20;
   position: relative;
 }
-
-@media screen and (min-width: 600px) {
-  .hamburger-react {
-    display: none;
-  }
-}
