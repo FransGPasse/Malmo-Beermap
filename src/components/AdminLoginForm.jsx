@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react"
+import React, { useRef, useState } from "react"
 import { useAuthContext } from "../contexts/AuthContext"
 import { Link, useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify"
@@ -14,7 +14,7 @@ const AdminLoginForm = () => {
 
   const toastError = () =>
     toast.error("Something went wrong!", {
-      position: "top-right",
+      position: "top-center",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -79,9 +79,6 @@ const AdminLoginForm = () => {
         <div>
           <h1 className="text-4xl text-center mb-4">Log in</h1>
 
-          {/* Visar errormeddelandet vid error */}
-          {/* {error && <div className="text-4xl">Error: {error}</div>} */}
-
           <form className="w-full max-w-sm">
             <div className="md:flex md:items-center mb-6">
               <div className="md:w-1/3">
@@ -126,7 +123,7 @@ const AdminLoginForm = () => {
               <div className="md:w-2/3">
                 {!currentUser ? (
                   <button
-                    className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                    className="text-white bg-primary hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
                     type="button"
                     onClick={handleSubmit}
                     disabled={loading}
@@ -145,7 +142,7 @@ const AdminLoginForm = () => {
                 )}
 
                 <Link
-                  className="text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                  className="text-accent focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
                   type="button"
                   to="/adminsignup"
                 >

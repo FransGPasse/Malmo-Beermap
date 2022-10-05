@@ -190,10 +190,13 @@ const BeerMap = () => {
               <FindDirections bar={selected} />
               <div className="collapse collapse-arrow rounded-box">
                 <input type="checkbox" className="peer" />
-                <div className="collapse-title bg-primary text-primary-content peer-checked:bg-primary peer-checked:text-secondary-content text-lg text-center">
+                <div
+                  className="collapse-title bg-primary text-accent
+peer-checked:text-accent peer-checked:bg-primary text-lg text-center"
+                >
                   More info
                 </div>
-                <div className="collapse-content bg-primary text-primary-content peer-checked:bg-primary peer-checked:text-secondary-content grid grid-cols-2">
+                <div className="collapse-content bg-primary text-accent peer-checked:bg-primary peer-checked:text-accent grid grid-cols-2">
                   <p>Type: {selected.type}</p>
                   <p>Cuisine: {selected.cuisine}</p>
                   <p>Email: {selected.email}</p>
