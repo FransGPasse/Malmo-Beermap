@@ -38,9 +38,14 @@ const BarList = () => {
   return (
     <>
       <div className="h-full w-full overflow-y-scroll">
-        <select name="option" defaultValue={"DEFAULT"} onChange={handleChange}>
+        <select
+          className="select select-bordered w-full max-w-xs"
+          name="option"
+          defaultValue={"DEFAULT"}
+          onChange={handleChange}
+        >
           <option value="DEFAULT" disabled>
-            tryck för att filtrera pls
+            Sortera
           </option>
           <option value="highest">highest</option>
           <option value="lowest">lowest</option>

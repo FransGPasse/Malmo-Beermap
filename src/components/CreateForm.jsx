@@ -92,7 +92,7 @@ const CreateForm = ({ id }) => {
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="name"
-                        className="block text-sm font-medium text-gray-700 pb-1"
+                        className="block text-sm font-medium text-black pb-1"
                       >
                         Name
                       </label>
@@ -102,7 +102,7 @@ const CreateForm = ({ id }) => {
                         type="text"
                         name="name"
                         id="name"
-                        className="input w-full max-w-xs"
+                        className="input input-bordered w-full max-w-xs"
                       />
                     </div>
 
