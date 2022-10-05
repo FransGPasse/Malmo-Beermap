@@ -12,7 +12,8 @@ const override = {
 }
 
 const BarList = () => {
-  const { city } = useAuthContext()
+  const { searchParams } = useAuthContext()
+  const stad = searchParams.get("city")
 
   /* Hämtar alla barer... */
   const { data, loading } = useGetCollection(
@@ -20,7 +21,7 @@ const BarList = () => {
     //Check if we have a value in city, wich we only get if we searched for an adress
     //If it's empty get all bars that has a name that is not null, wich is everyone
     //This will make sure every bar is rendered when we load the page for the first time
-    city ? where("city", "==", city) : where("name", "!=", null)
+    stad ? where("city", "==", stad) : where("name", "!=", null)
   )
 
   /* Om det fortfarande laddas returnerar vi detta */

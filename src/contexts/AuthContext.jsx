@@ -26,8 +26,6 @@ const AuthContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false)
   const [admin, setAdmin] = useState(null)
 
-  const [city, setCity] = useState(null)
-
   let [searchParams, setSearchParams] = useSearchParams({
     lat: 55.5918775,
     lng: 13.0078026,
@@ -121,8 +119,6 @@ const AuthContextProvider = ({ children }) => {
     resetPassword,
     currentUser,
     userEmail,
-    setCity,
-    city,
     setSearchParams,
     searchParams,
   }

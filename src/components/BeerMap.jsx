@@ -20,11 +20,11 @@ import { AiFillCloseCircle } from "react-icons/ai"
 
 import libraries from "../assets/mapLibraries"
 import { useAuthContext } from "../contexts/AuthContext"
+import { useSearchParams } from "react-router-dom"
 
 const BeerMap = () => {
   const { searchParams } = useAuthContext()
-  /* State för den stad som användaren sökt efter eller befinner sig i */
-  const { city } = useAuthContext()
+  const stad = searchParams.get("city")
 
   /* State för om barlistan visas eller ej */
   const [barListShown, setBarListShown] = useState(false)
@@ -43,7 +43,6 @@ const BeerMap = () => {
 
   const latUrl = searchParams.get("lat")
   const lngUrl = searchParams.get("lng")
-  console.log("URL", latUrl, lngUrl)
 
   /* Mittenpunkten på kartan när den först laddas in */
   const center = useMemo(
@@ -142,7 +141,7 @@ const BeerMap = () => {
         )}
 
         {/* Om city är null (det vill säga om vi inte sökt på något eller hämtat vår position) så mappar vi ut en marker för varje bar med en ölikon på latituden/longituden från databasen */}
-        {!city
+        {!stad
           ? bars.map((marker) => (
               <Marker
                 key={marker.name}
@@ -157,7 +156,7 @@ const BeerMap = () => {
             ))
           : /* Om city däremot inte är null så filtrerar vi våra markörer efter stadens namn och mappar sedan ut en markör för varje bar i den staden */
             bars
-              .filter((marker) => marker.city === city)
+              .filter((marker) => marker.city === stad)
               .map((filteredMarker) => (
                 <Marker
                   key={filteredMarker.name}
