@@ -1,5 +1,7 @@
 import React from "react"
 import { Link, NavLink } from "react-router-dom"
+import { useAuthContext } from "../contexts/AuthContext"
+import HamburgerMenu from "./HamburgerMenu"
 
 const NavBar = () => {
   return (
@@ -9,7 +11,7 @@ const NavBar = () => {
           Malmö BeerMap 🍻
         </a>
       </div>
-      <div className="flex-none">
+      <div className="hidden md:flex">
         <ul className="menu menu-horizontal p-0">
           <li>
             <NavLink as={Link} to="/admin">
@@ -23,6 +25,7 @@ const NavBar = () => {
           </li>
         </ul>
       </div>
+      <HamburgerMenu />
     </div>
   )
 }
