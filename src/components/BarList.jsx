@@ -13,8 +13,9 @@ const override = {
 }
 
 const BarList = () => {
+  const { searchParams } = useAuthContext()
+  const city = searchParams.get("city")
   const [option, setOption] = useState()
-  const { city } = useAuthContext()
 
   function handleChange(event) {
     setOption(event.target.value)

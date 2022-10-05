@@ -20,10 +20,11 @@ import { AiFillCloseCircle } from "react-icons/ai"
 
 import libraries from "../assets/mapLibraries"
 import { useAuthContext } from "../contexts/AuthContext"
+import { useSearchParams } from "react-router-dom"
 
 const BeerMap = () => {
-  /* State för den stad som användaren sökt efter eller befinner sig i */
-  const { searchParams, city } = useAuthContext()
+  const { searchParams } = useAuthContext()
+  const city = searchParams.get("city")
 
   /* State för om barlistan visas eller ej */
   const [barListShown, setBarListShown] = useState(false)
