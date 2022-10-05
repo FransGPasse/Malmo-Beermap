@@ -49,7 +49,6 @@ const SearchBar = ({ searchedLocation }) => {
             //Sätter location till första resultatet från sökningen
             const { lat, lng } = getLatLng(results[0])
             searchedLocation({ lat, lng })
-            console.log(lat, lng)
             const data = await BeerMapAPI.getAddress(lat, lng)
             setCity(data)
             setSearchParams({ lat, lng })

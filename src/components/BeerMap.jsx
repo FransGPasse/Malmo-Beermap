@@ -103,7 +103,7 @@ const BeerMap = () => {
             barListShown ? setBarListShown(false) : setBarListShown(true)
           }
         >
-          BARLISTAN
+          LIST OF BARS
         </button>
         {/* Ifall barListShown är true */}
         {barListShown && (
@@ -188,10 +188,7 @@ const BeerMap = () => {
               <FindDirections bar={selected} />
               <div className="collapse collapse-arrow rounded-box">
                 <input type="checkbox" className="peer" />
-                <div
-                  className="collapse-title bg-primary text-accent
-peer-checked:text-accent peer-checked:bg-primary text-lg text-center"
-                >
+                <div className="collapse-title bg-primary text-accent peer-checked:text-accent peer-checked:bg-primary text-lg text-center">
                   More info
                 </div>
                 <div className="collapse-content bg-primary text-accent peer-checked:bg-primary peer-checked:text-accent grid grid-cols-2">
