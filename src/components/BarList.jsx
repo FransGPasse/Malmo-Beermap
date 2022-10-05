@@ -16,7 +16,7 @@ const override = {
 
 const BarList = () => {
   const { searchParams } = useAuthContext()
-  const stad = searchParams.get("city")
+  const city = searchParams.get("city")
   const [option, setOption] = useState()
 
   function handleChange(event) {
@@ -30,7 +30,7 @@ const BarList = () => {
     //Check if we have a value in city, wich we only get if we searched for an adress
     //If it's empty get all bars that has a name that is not null, wich is everyone
     //This will make sure every bar is rendered when we load the page for the first time
-    stad ? where("city", "==", stad) : where("name", "!=", null)
+    city ? where("city", "==", city) : where("name", "!=", null)
   )
 
   /* Om det fortfarande laddas returnerar vi detta */

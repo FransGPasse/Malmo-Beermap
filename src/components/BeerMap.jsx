@@ -24,7 +24,7 @@ import { useSearchParams } from "react-router-dom"
 
 const BeerMap = () => {
   const { searchParams } = useAuthContext()
-  const stad = searchParams.get("city")
+  const city = searchParams.get("city")
 
   /* State för om barlistan visas eller ej */
   const [barListShown, setBarListShown] = useState(false)
@@ -139,7 +139,7 @@ const BeerMap = () => {
         )}
 
         {/* Om city är null (det vill säga om vi inte sökt på något eller hämtat vår position) så mappar vi ut en marker för varje bar med en ölikon på latituden/longituden från databasen */}
-        {!stad
+        {!city
           ? bars.map((marker) => (
               <Marker
                 key={marker.name}
@@ -154,7 +154,7 @@ const BeerMap = () => {
             ))
           : /* Om city däremot inte är null så filtrerar vi våra markörer efter stadens namn och mappar sedan ut en markör för varje bar i den staden */
             bars
-              .filter((marker) => marker.city === stad)
+              .filter((marker) => marker.city === city)
               .map((filteredMarker) => (
                 <Marker
                   key={filteredMarker.name}
