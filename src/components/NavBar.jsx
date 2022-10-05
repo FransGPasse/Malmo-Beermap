@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Link, NavLink } from "react-router-dom"
 import { useAuthContext } from "../contexts/AuthContext"
+import HamburgerMenu from "./HamburgerMenu"
 
 const NavBar = () => {
   //Kontextet för om man är inloggad eller ej
@@ -17,16 +18,11 @@ const NavBar = () => {
           Malmö BeerMap 🍻
         </NavLink>
       </div>
-      <div className="flex-none">
+      <div className="hidden md:flex">
         <ul className="menu menu-horizontal p-0">
           <li>
             <NavLink as={Link} to="/admin">
               Admin
-            </NavLink>
-          </li>
-          <li>
-            <NavLink as={Link} to="/about">
-              About
             </NavLink>
           </li>
           <li>
@@ -36,6 +32,7 @@ const NavBar = () => {
           </li>
         </ul>
       </div>
+      <HamburgerMenu />
     </div>
   )
 }
