@@ -22,9 +22,8 @@ import libraries from "../assets/mapLibraries"
 import { useAuthContext } from "../contexts/AuthContext"
 
 const BeerMap = () => {
-  const { searchParams } = useAuthContext()
   /* State för den stad som användaren sökt efter eller befinner sig i */
-  const { city } = useAuthContext()
+  const { searchParams, city } = useAuthContext()
 
   /* State för om barlistan visas eller ej */
   const [barListShown, setBarListShown] = useState(false)
@@ -43,7 +42,6 @@ const BeerMap = () => {
 
   const latUrl = searchParams.get("lat")
   const lngUrl = searchParams.get("lng")
-  console.log("URL", latUrl, lngUrl)
 
   /* Mittenpunkten på kartan när den först laddas in */
   const center = useMemo(
@@ -100,7 +98,7 @@ const BeerMap = () => {
         {/* Funktion och komponent för att hitta den sökta position */}
         <SearchBar searchedLocation={panToSearchedLoaction} />
         <button
-          className="z-30 btn btn-primary"
+          className="z-30 btn btn-accent"
           onClick={() =>
             barListShown ? setBarListShown(false) : setBarListShown(true)
           }
@@ -188,6 +186,20 @@ const BeerMap = () => {
               <p>{selected.description}</p>
               {/* Funktionell komponent för att hitta vägbeskrivning till den valda baren */}
               <FindDirections bar={selected} />
+              <div className="collapse collapse-arrow rounded-box">
+                <input type="checkbox" className="peer" />
+                <div className="collapse-title bg-primary text-primary-content peer-checked:bg-primary peer-checked:text-secondary-content text-lg text-center">
+                  More info
+                </div>
+                <div className="collapse-content bg-primary text-primary-content peer-checked:bg-primary peer-checked:text-secondary-content grid grid-cols-2">
+                  <p>Type: {selected.type}</p>
+                  <p>Cuisine: {selected.cuisine}</p>
+                  <p>Email: {selected.email}</p>
+                  <p>Facebook: {selected.fb}</p>
+                  <p>Instagram: {selected.insta}</p>
+                  <p>Phone number: {selected.phone}</p>
+                </div>
+              </div>
             </div>
           </InfoWindowF>
         ) : null}
