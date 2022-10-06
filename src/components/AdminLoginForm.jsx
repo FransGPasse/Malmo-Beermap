@@ -3,6 +3,7 @@ import { useAuthContext } from "../contexts/AuthContext"
 import { Link, useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { gsap } from "gsap"
 
 const AdminLoginForm = () => {
   const emailRef = useRef()
@@ -11,6 +12,8 @@ const AdminLoginForm = () => {
   const [loading, setLoading] = useState(false)
   const { login, currentUser, logout } = useAuthContext()
   const navigate = useNavigate()
+  const formContainer = useRef()
+  const loginLabel = useRef()
 
   const toastError = () =>
     toast.error("Something went wrong!", {
@@ -73,15 +76,42 @@ const AdminLoginForm = () => {
     window.location.reload()
   }
 
+  useEffect(() => {
+    gsap.fromTo(
+      loginLabel.current,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+      }
+    )
+    gsap.fromTo(
+      formContainer.current,
+      {
+        opacity: 0,
+      },
+      {
+        delay: 0.5,
+        opacity: 1,
+        duration: 1,
+      }
+    )
+  }, [])
+
   return (
     <>
       <div className="grid place-items-center h-screen bg-secondary">
         <div>
-          <h1 className="text-4xl text-center mb-4 text-primary log-in-stamp opacity-100">
+          <h1
+            ref={loginLabel}
+            className="text-4xl text-center mb-4 text-primary opacity-100"
+          >
             Log in
           </h1>
 
-          <form className="w-full max-w-sm">
+          <form ref={formContainer} className="w-full max-w-sm">
             <div className="md:flex md:items-center mb-6">
               <div className="md:w-1/3">
                 <label

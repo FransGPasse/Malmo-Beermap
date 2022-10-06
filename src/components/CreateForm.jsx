@@ -1,9 +1,10 @@
-import React from "react"
+import React, { useRef, useEffect } from "react"
 import { collection, addDoc, Timestamp } from "firebase/firestore"
 import { db } from "../firebase"
 import { useForm } from "react-hook-form"
 import BeerMapAPI from "../services/BeerMapAPI"
 import { useAuthContext } from "../contexts/AuthContext"
+import { gsap } from "gsap"
 
 const CreateForm = ({ id }) => {
   const {
@@ -12,6 +13,9 @@ const CreateForm = ({ id }) => {
     formState: { errors },
     reset,
   } = useForm()
+  const infoLabel1 = useRef()
+  const infoLabel2 = useRef()
+  const formContainer = useRef()
 
   //Kontextet för om man är inloggad eller ej
   const { currentUser } = useAuthContext()
@@ -62,22 +66,60 @@ const CreateForm = ({ id }) => {
     reset()
   }
 
+  useEffect(() => {
+    gsap.fromTo(
+      infoLabel1.current,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+      }
+    )
+    gsap.fromTo(
+      infoLabel2.current,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+      }
+    )
+    gsap.fromTo(
+      formContainer.current,
+      {
+        opacity: 0,
+      },
+      {
+        delay: 0.5,
+        opacity: 1,
+        duration: 1,
+      }
+    )
+  }, [])
+
   return (
     <div className="pt-20 pb-20 bg-secondary flex content-center m-auto w-screen min-h-screen items-center justify-center -z-10">
       <div className="sm:mt-0">
         <div>
           <div className="md:col-span-1 my-5">
             <div className="px-4 sm:px-0">
-              <h3 className="text-lg font-medium leading-6 text-gray-900">
+              <h3
+                ref={infoLabel1}
+                className="text-lg font-medium leading-6 text-gray-900"
+              >
                 Bar information
               </h3>
-              <p className="mt-1 text-sm text-gray-600">
+              <p ref={infoLabel2} className="mt-1 text-sm text-gray-600">
                 Insert the information of the bar in the form below - cheers!
               </p>
             </div>
           </div>
           <div className="mt-5 md:col-span-2 md:mt-0">
             <form
+              ref={formContainer}
               action="#"
               method="POST"
               onSubmit={

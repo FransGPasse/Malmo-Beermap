@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import { useAuthContext } from "../contexts/AuthContext"
 import { Link, useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { gsap } from "gsap"
 
 const AdminSignUpForm = () => {
   const emailRef = useRef()
@@ -14,6 +15,8 @@ const AdminSignUpForm = () => {
   const [loading, setLoading] = useState(false)
   const { signup } = useAuthContext()
   const navigate = useNavigate()
+  const signupLabel = useRef()
+  const formContainer = useRef()
 
   const toastError = () =>
     toast.error("Something went wrong!", {
@@ -86,16 +89,45 @@ const AdminSignUpForm = () => {
     }
   }
 
+  useEffect(() => {
+    gsap.fromTo(
+      signupLabel.current,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+      }
+    )
+    gsap.fromTo(
+      formContainer.current,
+      {
+        opacity: 0,
+      },
+      {
+        delay: 0.5,
+        opacity: 1,
+        duration: 1,
+      }
+    )
+  }, [])
+
   return (
     <>
       <div className="grid place-items-center h-screen bg-secondary">
         <div>
-          <h1 className="text-4xl mb-4 text-center text-primary">Sign up</h1>
+          <h1
+            ref={signupLabel}
+            className="text-4xl mb-4 text-center text-primary"
+          >
+            Sign up
+          </h1>
 
           {/* Visar errormeddelandet vid error */}
           {error && <div className="text-4xl">Error: {error}</div>}
 
-          <form className="w-full max-w-sm">
+          <form ref={formContainer} className="w-full max-w-sm">
             <div className="md:flex md:items-center mb-6">
               <div className="md:w-1/3">
                 <label
