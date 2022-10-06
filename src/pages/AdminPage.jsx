@@ -37,6 +37,7 @@ const AdminPage = () => {
       city: data.city,
       description: data.description,
       type: data.type,
+      product: data.product,
       phone: data.phone,
       website: data.website,
       email: data.email,
@@ -75,6 +76,10 @@ const AdminPage = () => {
       {
         Header: "Type",
         accessor: "type",
+      },
+      {
+        Header: "Product",
+        accessor: "product",
       },
       {
         Header: "Phone",
@@ -147,6 +152,10 @@ const AdminPage = () => {
       {
         Header: "Type",
         accessor: "type",
+      },
+      {
+        header: "Product",
+        accessor: "product",
       },
       {
         Header: "Phone",

@@ -31,6 +31,7 @@ const CreateForm = ({ id }) => {
       city: data.city,
       description: data.description,
       type: data.type,
+      product: data.product,
       phone: data.phone,
       website: data.website,
       email: data.email,
@@ -54,6 +55,7 @@ const CreateForm = ({ id }) => {
       city: data.city,
       description: data.description,
       type: data.type,
+      product: data.product,
       phone: data.phone,
       website: data.website,
       email: data.email,
@@ -229,9 +231,35 @@ const CreateForm = ({ id }) => {
                         <option disabled selected>
                           Vad för typ av stämning?
                         </option>
-                        <option>Chill</option>
-                        <option>Party</option>
-                        <option>AW</option>
+                        <option>Divebar</option>
+                        <option>Cocktailbar</option>
+                        <option>Microbrewery</option>
+                        <option>Sportsbar</option>
+                        <option>Karaokebar</option>
+                      </select>
+                    </div>
+
+                    <div className="col-span-6 sm:col-span-5">
+                      <label
+                        htmlFor="product"
+                        className="block text-sm font-medium text-primary pb-1"
+                      >
+                        Products
+                      </label>
+                      <select
+                        {...register("product")}
+                        required
+                        id="product"
+                        name="product"
+                        className="select w-full max-w-xs text-primary bg-secondary border border-primary"
+                      >
+                        <option disabled selected>
+                          Vad för typ av produkt?
+                        </option>
+                        <option>Craftbeer</option>
+                        <option>Local beer</option>
+                        <option>Cocktails</option>
+                        <option>Natural wines</option>
                       </select>
                     </div>
 
