@@ -8,15 +8,20 @@ import { useMemo } from "react"
 import { useAuthContext } from "../contexts/AuthContext"
 import { Link } from "react-router-dom"
 import { Tab } from "@headlessui/react"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { collection, addDoc, deleteDoc, doc } from "firebase/firestore"
 import { auth, db, storage } from "../firebase"
+import { gsap } from "gsap"
+import { useEffect } from "react"
 
 const AdminPage = () => {
   //Kontextet för om man är inloggad eller ej
   const { currentUser } = useAuthContext()
   /* Hämtar alla suggestions */
   const { data: suggestions, loading } = useGetCollection("suggestions")
+
+  const adminContainer = useRef()
+  const buttonContainer = useRef()
 
   /* Hämtar alla bars */
   const { data: bars } = useGetCollection("bars")
@@ -205,22 +210,48 @@ const AdminPage = () => {
 
   let [categories] = useState(["Suggestions", "Bars", "Users"])
 
+  useEffect(() => {
+    gsap.fromTo(
+      adminContainer.current,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+      }
+    )
+    gsap.fromTo(
+      buttonContainer.current,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+      }
+    )
+  }, [])
+
   return (
     <>
       {currentUser && (
-        <div className="bg-secondary flex flex-col justify-center items-center">
+        <div className="bg-secondary flex flex-col justify-center items-center pl-10 pr-10">
           <Tab.Group>
-            <Tab.List className="mt-20 flex space-x-1 rounded-xl bg-blue-900/20 w-full">
+            <Tab.List
+              ref={buttonContainer}
+              className="mt-20 flex space-x-1 rounded-xl bg-secondary w-full"
+            >
               {categories.map((category) => (
                 <Tab
                   key={category}
                   className={({ selected }) =>
                     classNames(
-                      "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700",
-                      "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                      "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-primary bg-primary",
+                      "ring-opacity-60 ring-offset-2 ring-accent focus:outline-none focus:ring-2",
                       selected
                         ? "bg-white shadow"
-                        : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                        : "text-blue-100 hover:bg-accent hover:text-primary"
                     )
                   }
                 >
@@ -228,7 +259,7 @@ const AdminPage = () => {
                 </Tab>
               ))}
             </Tab.List>
-            <Tab.Panels className="mt-2 w-3/4">
+            <Tab.Panels ref={adminContainer} className="mt-2 w-3/4">
               <Tab.Panel
                 key={1}
                 className="rounded-xring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"

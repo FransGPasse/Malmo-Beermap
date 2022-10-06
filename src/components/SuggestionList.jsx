@@ -7,13 +7,16 @@ function SuggestionList({ columns, data }) {
 
   return (
     <div className="overflow-x-scroll rounded-lg">
-      <table className="table-normal bg-white" {...getTableProps()}>
-        <thead className="bg-gray-200">
+      <table className="table-normal bg-primary" {...getTableProps()}>
+        <thead className="bg-secondary">
           {/* Map alla headers from de inhämtade kolumnerna från SuggestionPage */}
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                <th
+                  className="text-primary"
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                >
                   {column.render("Header")}
                   <span>
                     {column.isSorted ? (column.isSortedDesc ? "▼" : "▲") : " "}
@@ -27,7 +30,10 @@ function SuggestionList({ columns, data }) {
           {rows.map((row, i) => {
             prepareRow(row)
             return (
-              <tr {...row.getRowProps()}>
+              <tr
+                className="text-primary bg-secondary border-b border-primary"
+                {...row.getRowProps()}
+              >
                 {row.cells.map((cell) => {
                   return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                 })}

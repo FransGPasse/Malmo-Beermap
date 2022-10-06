@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef, useCallback } from "react"
+import { useMemo, useState, useRef, useCallback, useEffect } from "react"
 
 import {
   useLoadScript,
@@ -20,8 +20,14 @@ import FindDirections from "./FindDirections"
 import libraries from "../assets/mapLibraries"
 import { useAuthContext } from "../contexts/AuthContext"
 
+import { gsap } from "gsap"
+
 const BeerMap = () => {
   const { searchParams, barListShown } = useAuthContext()
+  const [cityExists, setCityExists] = useState(false)
+  const bgBlur = useRef()
+  const [filterType, setFilterType] = useState("")
+  const [filterProducts, setFilterProducts] = useState("")
 
   /* State för användarens position */
   const [userLocation, setUserLocation] = useState("")
@@ -40,6 +46,7 @@ const BeerMap = () => {
 
   /* Hämtar staden från URL:n om det finns en */
   const city = searchParams.get("city")
+  const type = searchParams.get("type")
 
   /* Hämtar latitud och longitud från URL:n om det finns en */
   const latUrl = searchParams.get("lat")
@@ -86,11 +93,25 @@ const BeerMap = () => {
   /* Om kartan inte är laddad returnerar vi detta */
   if (!isLoaded) return <h1 className="text-4xl">Loading...</h1>
 
+  if (barListShown) {
+    console.log("hej")
+  }
+
+  if (!barListShown) {
+    console.log("stäng")
+  }
+
+  console.log("här har vi type", filterType)
+  console.log("här har vi type", filterProducts)
+
   return (
     <>
       {/* Om barlistan visas, lägg en div som blurrar kartan */}
       {barListShown && (
-        <div className="fixed h-screen w-screen z-40 backdrop-blur-sm bg-gray-600/10"></div>
+        <div
+          ref={bgBlur}
+          className="fixed h-screen w-screen z-40 backdrop-blur-sm bg-gray-600/10"
+        ></div>
       )}
 
       <div className="absolute flex flex-col justify-between items-center px-10 top-20 w-full sm:grid sm:grid-flow-col sm:items-stretch">
@@ -123,7 +144,7 @@ const BeerMap = () => {
         )}
 
         {/* Om city är null (det vill säga om vi inte sökt på något eller hämtat vår position) så mappar vi ut en marker för varje bar med en ölikon på latituden/longituden från databasen */}
-        {!city
+        {!cityExists
           ? bars.map((marker) => (
               <Marker
                 key={marker.name}

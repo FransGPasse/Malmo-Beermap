@@ -1,4 +1,5 @@
 import React from "react"
+import BeerMap from "./BeerMap"
 
 const FilterDropdown = ({ bars }) => {
   const types = [
@@ -15,24 +16,6 @@ const FilterDropdown = ({ bars }) => {
     setUrl({ ...url, city: city, product: e.target.value })
 
     console.log(searchParams)
-
-    const filteredBars = bars
-      .filter((marker) => marker.product === e.target.value)
-      .map((filteredMarker) => (
-        <Marker
-          key={filteredMarker.name}
-          position={{
-            lat: filteredMarker.lat,
-            lng: filteredMarker.lng,
-          }}
-          animation={2}
-          onClick={() => {
-            setSelected(filteredMarker)
-          }}
-          className="hover:-translate-y-2"
-        />
-      ))
-    console.log(filteredBars)
   }
 
   const handleTypes = (e) => {
@@ -40,24 +23,6 @@ const FilterDropdown = ({ bars }) => {
     setUrl({ ...url, city: city, type: e.target.value })
 
     console.log(searchParams)
-
-    const filteredBars = bars
-      .filter((marker) => marker.type === e.target.value)
-      .map((filteredMarker) => (
-        <Marker
-          key={filteredMarker.name}
-          position={{
-            lat: filteredMarker.lat,
-            lng: filteredMarker.lng,
-          }}
-          animation={2}
-          onClick={() => {
-            setSelected(filteredMarker)
-          }}
-          className="hover:-translate-y-2"
-        />
-      ))
-    console.log(filteredBars)
   }
 
   return (
