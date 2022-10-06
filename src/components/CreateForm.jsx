@@ -1,9 +1,10 @@
-import React from "react"
+import React, { useRef, useEffect } from "react"
 import { collection, addDoc, Timestamp } from "firebase/firestore"
 import { db } from "../firebase"
 import { useForm } from "react-hook-form"
 import BeerMapAPI from "../services/BeerMapAPI"
 import { useAuthContext } from "../contexts/AuthContext"
+import { gsap } from "gsap"
 
 const CreateForm = ({ id }) => {
   const {
@@ -12,6 +13,9 @@ const CreateForm = ({ id }) => {
     formState: { errors },
     reset,
   } = useForm()
+  const infoLabel1 = useRef()
+  const infoLabel2 = useRef()
+  const formContainer = useRef()
 
   //Kontextet för om man är inloggad eller ej
   const { currentUser } = useAuthContext()
@@ -62,22 +66,60 @@ const CreateForm = ({ id }) => {
     reset()
   }
 
+  useEffect(() => {
+    gsap.fromTo(
+      infoLabel1.current,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+      }
+    )
+    gsap.fromTo(
+      infoLabel2.current,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+      }
+    )
+    gsap.fromTo(
+      formContainer.current,
+      {
+        opacity: 0,
+      },
+      {
+        delay: 0.5,
+        opacity: 1,
+        duration: 1,
+      }
+    )
+  }, [])
+
   return (
-    <div className="absolute top-0 flex content-center m-auto w-screen h-screen items-center justify-center -z-10">
-      <div className="mt-10 sm:mt-0">
+    <div className="pt-20 pb-20 bg-secondary flex content-center m-auto w-screen min-h-screen items-center justify-center -z-10">
+      <div className="sm:mt-0">
         <div>
           <div className="md:col-span-1 my-5">
             <div className="px-4 sm:px-0">
-              <h3 className="text-lg font-medium leading-6 text-gray-900">
+              <h3
+                ref={infoLabel1}
+                className="text-lg font-medium leading-6 text-gray-900"
+              >
                 Bar information
               </h3>
-              <p className="mt-1 text-sm text-gray-600">
+              <p ref={infoLabel2} className="mt-1 text-sm text-gray-600">
                 Insert the information of the bar in the form below - cheers!
               </p>
             </div>
           </div>
           <div className="mt-5 md:col-span-2 md:mt-0">
             <form
+              ref={formContainer}
               action="#"
               method="POST"
               onSubmit={
@@ -86,13 +128,13 @@ const CreateForm = ({ id }) => {
                   : handleSubmit(onCreateBars)
               }
             >
-              <div className="overflow-hidden shadow sm:rounded-md">
-                <div className="bg-gray-300 px-4 py-5 sm:p-6">
+              <div className="overflow-hidden">
+                <div className="bg-secondary px-4 py-5 sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="name"
-                        className="block text-sm font-medium text-black pb-1"
+                        className="block text-sm font-medium text-primary pb-1"
                       >
                         Name
                       </label>
@@ -102,14 +144,14 @@ const CreateForm = ({ id }) => {
                         type="text"
                         name="name"
                         id="name"
-                        className="input input-bordered w-full max-w-xs"
+                        className="border-b focus:outline-none bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary"
                       />
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="street"
-                        className="block text-sm font-medium text-gray-700 pb-1"
+                        className="block text-sm font-medium text-primary pb-1"
                       >
                         Street
                       </label>
@@ -119,14 +161,14 @@ const CreateForm = ({ id }) => {
                         type="text"
                         name="street"
                         id="street"
-                        className="input w-full max-w-xs"
+                        className="border-b focus:outline-none bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary"
                       />
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="cuisine"
-                        className="block text-sm font-medium text-gray-700 pb-1"
+                        className="block text-sm font-medium text-primary pb-1"
                       >
                         Cuisine
                       </label>
@@ -136,13 +178,13 @@ const CreateForm = ({ id }) => {
                         type="text"
                         name="cuisine"
                         id="cuisine"
-                        className="input w-full max-w-xs"
+                        className="border-b focus:outline-none bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary"
                       />
                     </div>
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="cuisine"
-                        className="block text-sm font-medium text-gray-700 pb-1"
+                        className="block text-sm font-medium text-primary pb-1"
                       >
                         City
                       </label>
@@ -152,13 +194,13 @@ const CreateForm = ({ id }) => {
                         type="text"
                         name="city"
                         id="city"
-                        className="input w-full max-w-xs"
+                        className="border-b focus:outline-none bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary"
                       />
                     </div>
                     <div className="col-span-6 sm:col-span-4">
                       <label
                         htmlFor="description"
-                        className="block text-sm font-medium text-gray-700 pb-1"
+                        className="block text-sm font-medium text-primary pb-1"
                       >
                         Description
                       </label>
@@ -166,14 +208,14 @@ const CreateForm = ({ id }) => {
                         {...register("description")}
                         required
                         id="description"
-                        className="textarea w-max"
+                        className="textarea bg-secondary text-primary border border-primary w-full"
                       />
                     </div>
 
                     <div className="col-span-6 sm:col-span-5">
                       <label
                         htmlFor="type"
-                        className="block text-sm font-medium text-gray-700 pb-1"
+                        className="block text-sm font-medium text-primary pb-1"
                       >
                         Type
                       </label>
@@ -182,7 +224,7 @@ const CreateForm = ({ id }) => {
                         required
                         id="type"
                         name="type"
-                        className="select w-full max-w-xs"
+                        className="select w-full max-w-xs text-primary bg-secondary border border-primary"
                       >
                         <option disabled selected>
                           Vad för typ av stämning?
@@ -196,7 +238,7 @@ const CreateForm = ({ id }) => {
                     <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                       <label
                         htmlFor="phone"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-sm font-medium text-primary pb-1"
                       >
                         Phone
                       </label>
@@ -205,13 +247,13 @@ const CreateForm = ({ id }) => {
                         type="text"
                         name="phone"
                         id="phone"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="border-b focus:outline-none bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary"
                       />
                     </div>
                     <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                       <label
                         htmlFor="email"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-sm font-medium text-primary pb-1"
                       >
                         Email
                       </label>
@@ -220,14 +262,14 @@ const CreateForm = ({ id }) => {
                         type="email"
                         name="email"
                         id="email"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="border-b focus:outline-none bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary"
                       />
                     </div>
 
                     <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                       <label
                         htmlFor="website"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-sm font-medium text-primary pb-1"
                       >
                         Website
                       </label>
@@ -236,14 +278,14 @@ const CreateForm = ({ id }) => {
                         type="url"
                         name="website"
                         id="website"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="border-b focus:outline-none bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary"
                       />
                     </div>
 
                     <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                       <label
                         htmlFor="fb"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-sm font-medium text-primary pb-1"
                       >
                         Facebook
                       </label>
@@ -252,13 +294,13 @@ const CreateForm = ({ id }) => {
                         type="text"
                         name="fb"
                         id="fb"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="border-b focus:outline-none bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary"
                       />
                     </div>
                     <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                       <label
                         htmlFor="insta"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-sm font-medium text-primary pb-1"
                       >
                         Instagram
                       </label>
@@ -267,16 +309,16 @@ const CreateForm = ({ id }) => {
                         type="text"
                         name="insta"
                         id="insta"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="border-b focus:outline-none bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary"
                       />
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                <div className="flex justify-center bg-secondary px-4 py-3 text-right sm:px-6">
                   {id === "suggestion" ? (
                     <button
                       type="submit"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-accent py-2 px-4 text-sm font-medium text-primary shadow-sm hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                       Suggest!
                     </button>

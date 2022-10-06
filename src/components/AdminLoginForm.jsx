@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useAuthContext } from "../contexts/AuthContext"
 import { Link, useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { gsap } from "gsap"
 
 const AdminLoginForm = () => {
   const emailRef = useRef()
@@ -11,6 +12,8 @@ const AdminLoginForm = () => {
   const [loading, setLoading] = useState(false)
   const { login, currentUser, logout } = useAuthContext()
   const navigate = useNavigate()
+  const formContainer = useRef()
+  const loginLabel = useRef()
 
   const toastError = () =>
     toast.error("Something went wrong!", {
@@ -73,17 +76,46 @@ const AdminLoginForm = () => {
     window.location.reload()
   }
 
+  useEffect(() => {
+    gsap.fromTo(
+      loginLabel.current,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+      }
+    )
+    gsap.fromTo(
+      formContainer.current,
+      {
+        opacity: 0,
+      },
+      {
+        delay: 0.5,
+        opacity: 1,
+        duration: 1,
+      }
+    )
+  }, [])
+
   return (
     <>
-      <div className="grid place-items-center h-screen">
+      <div className="grid place-items-center h-screen bg-secondary">
         <div>
-          <h1 className="text-4xl text-center mb-4">Log in</h1>
+          <h1
+            ref={loginLabel}
+            className="text-4xl text-center mb-4 text-primary opacity-100"
+          >
+            Log in
+          </h1>
 
-          <form className="w-full max-w-sm">
+          <form ref={formContainer} className="w-full max-w-sm">
             <div className="md:flex md:items-center mb-6">
               <div className="md:w-1/3">
                 <label
-                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                  className="block text-primary font-bold md:text-right mb-1 md:mb-0 pr-4"
                   htmlFor="inline-email"
                 >
                   Email
@@ -91,7 +123,7 @@ const AdminLoginForm = () => {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="border-b focus:outline-none bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary"
                   type="email"
                   placeholder="Email"
                   ref={emailRef}
@@ -102,7 +134,7 @@ const AdminLoginForm = () => {
             <div className="md:flex md:items-center mb-6">
               <div className="md:w-1/3">
                 <label
-                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                  className="block text-primary font-bold md:text-right mb-1 md:mb-0 pr-4"
                   htmlFor="inline-password"
                 >
                   Password
@@ -110,7 +142,7 @@ const AdminLoginForm = () => {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="border-b focus:outline-none bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary "
                   type="password"
                   placeholder="Password"
                   ref={passwordRef}
@@ -142,7 +174,7 @@ const AdminLoginForm = () => {
                 )}
 
                 <Link
-                  className="text-accent focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                  className="text-accent focus:outline-none text-xl focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
                   type="button"
                   to="/adminsignup"
                 >

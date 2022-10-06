@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import { useAuthContext } from "../contexts/AuthContext"
 import { Link, useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { gsap } from "gsap"
 
 const AdminSignUpForm = () => {
   const emailRef = useRef()
@@ -14,6 +15,8 @@ const AdminSignUpForm = () => {
   const [loading, setLoading] = useState(false)
   const { signup } = useAuthContext()
   const navigate = useNavigate()
+  const signupLabel = useRef()
+  const formContainer = useRef()
 
   const toastError = () =>
     toast.error("Something went wrong!", {
@@ -86,20 +89,49 @@ const AdminSignUpForm = () => {
     }
   }
 
+  useEffect(() => {
+    gsap.fromTo(
+      signupLabel.current,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+      }
+    )
+    gsap.fromTo(
+      formContainer.current,
+      {
+        opacity: 0,
+      },
+      {
+        delay: 0.5,
+        opacity: 1,
+        duration: 1,
+      }
+    )
+  }, [])
+
   return (
     <>
-      <div className="grid place-items-center h-screen">
+      <div className="grid place-items-center h-screen bg-secondary">
         <div>
-          <h1 className="text-4xl text-center">Sign up</h1>
+          <h1
+            ref={signupLabel}
+            className="text-4xl mb-4 text-center text-primary"
+          >
+            Sign up
+          </h1>
 
           {/* Visar errormeddelandet vid error */}
           {error && <div className="text-4xl">Error: {error}</div>}
 
-          <form className="w-full max-w-sm">
+          <form ref={formContainer} className="w-full max-w-sm">
             <div className="md:flex md:items-center mb-6">
               <div className="md:w-1/3">
                 <label
-                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                  className="block text-primary font-bold md:text-right mb-1 md:mb-0 pr-4"
                   htmlFor="inline-email"
                 >
                   Name
@@ -107,7 +139,7 @@ const AdminSignUpForm = () => {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="border-b focus:outline-none bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary "
                   type="text"
                   placeholder="Name"
                   ref={nameRef}
@@ -118,7 +150,7 @@ const AdminSignUpForm = () => {
             <div className="md:flex md:items-center mb-6">
               <div className="md:w-1/3">
                 <label
-                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                  className="block text-primary font-bold md:text-right mb-1 md:mb-0 pr-4"
                   htmlFor="inline-email"
                 >
                   Email
@@ -126,7 +158,7 @@ const AdminSignUpForm = () => {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="border-b focus:outline-none bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary "
                   type="email"
                   placeholder="Email"
                   ref={emailRef}
@@ -137,7 +169,7 @@ const AdminSignUpForm = () => {
             <div className="md:flex md:items-center mb-6">
               <div className="md:w-1/3">
                 <label
-                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                  className="block text-primary font-bold md:text-right mb-1 md:mb-0 pr-4"
                   htmlFor="inline-email"
                 >
                   Photo
@@ -145,7 +177,7 @@ const AdminSignUpForm = () => {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="border-b bg-secondary focus:outline-none text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary "
                   type="file"
                   ref={photoRef}
                   onChange={handleFileChange}
@@ -155,7 +187,7 @@ const AdminSignUpForm = () => {
             <div className="md:flex md:items-center mb-6">
               <div className="md:w-1/3">
                 <label
-                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                  className="block text-primary font-bold md:text-right mb-1 md:mb-0 pr-4"
                   htmlFor="inline-password"
                 >
                   Password
@@ -163,7 +195,7 @@ const AdminSignUpForm = () => {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="border-b bg-secondary focus:outline-none text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary "
                   type="password"
                   placeholder="Password"
                   ref={passwordRef}
@@ -175,7 +207,7 @@ const AdminSignUpForm = () => {
               <div className="md:w-1/3"></div>
               <div className="md:w-2/3">
                 <Link
-                  className="text-accent focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                  className="text-accent focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-xl px-5 py-2.5 mr-2 mb-2"
                   type="button"
                   to="/adminlogin"
                 >

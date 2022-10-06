@@ -208,9 +208,9 @@ const AdminPage = () => {
   return (
     <>
       {currentUser && (
-        <div className="flex flex-col justify-center items-center">
+        <div className="bg-secondary flex flex-col justify-center items-center">
           <Tab.Group>
-            <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1 w-1/3">
+            <Tab.List className="mt-20 flex space-x-1 rounded-xl bg-blue-900/20 w-full">
               {categories.map((category) => (
                 <Tab
                   key={category}
