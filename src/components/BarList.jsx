@@ -4,6 +4,7 @@ import DotLoader from "react-spinners/DotLoader"
 import { where } from "firebase/firestore"
 import { useAuthContext } from "../contexts/AuthContext"
 import BarListObject from "../components/BarListObject"
+import { useEffect, useRef } from "react"
 
 const override = {
   position: "absolute",

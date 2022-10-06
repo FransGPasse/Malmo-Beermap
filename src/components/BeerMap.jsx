@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef, useCallback } from "react"
+import { useMemo, useState, useRef, useCallback, useEffect } from "react"
 
 import {
   useLoadScript,
@@ -20,6 +20,8 @@ import FindDirections from "./FindDirections"
 import libraries from "../assets/mapLibraries"
 import { useAuthContext } from "../contexts/AuthContext"
 import { useEffect } from "react"
+
+import { gsap } from "gsap"
 
 const BeerMap = () => {
   const { searchParams, setSearchParams, setFilters, filters, barListShown } =
@@ -94,11 +96,25 @@ const BeerMap = () => {
   /* Om kartan inte är laddad returnerar vi detta */
   if (!isLoaded) return <h1 className="text-4xl">Loading...</h1>
 
+  if (barListShown) {
+    console.log("hej")
+  }
+
+  if (!barListShown) {
+    console.log("stäng")
+  }
+
+  console.log("här har vi type", filterType)
+  console.log("här har vi type", filterProducts)
+
   return (
     <>
       {/* Om barlistan visas, lägg en div som blurrar kartan */}
       {barListShown && (
-        <div className="fixed h-screen w-screen z-40 backdrop-blur-sm bg-gray-600/10"></div>
+        <div
+          ref={bgBlur}
+          className="fixed h-screen w-screen z-40 backdrop-blur-sm bg-gray-600/10"
+        ></div>
       )}
 
       <div className="absolute flex flex-col justify-between items-center px-10 top-20 w-full sm:grid sm:grid-flow-col sm:items-stretch">
