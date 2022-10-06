@@ -7,11 +7,14 @@ import { gsap } from "gsap"
 const HamburgerMenu = () => {
   const [isOpen, setOpen] = useState(false)
   const containerRef = useRef()
+  const tl = useRef()
   const timeline = gsap.timeline()
 
+  console.log(isOpen)
+
+  // animerar menyn beroende på ifall användaren klickat på menyn och isOpen är true eller false
   useEffect(() => {
     if (isOpen) {
-      console.log("öppna")
       gsap.from(containerRef.current, {
         height: 0,
         duration: 1,
@@ -32,7 +35,6 @@ const HamburgerMenu = () => {
     }
 
     if (!isOpen) {
-      console.log("stäng")
       timeline.timeScale(3)
       timeline.reverse()
     }

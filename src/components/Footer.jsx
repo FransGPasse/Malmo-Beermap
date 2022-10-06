@@ -7,7 +7,7 @@ const Footer = () => {
 
   return (
     <footer className="footer fixed flex justify-between bottom-0 p-4 bg-primary">
-      <p>BeerMap © 2022</p>
+      <p className="pointer-events-none">BeerMap © 2022</p>
       {!currentUser ? (
         <Link as={Link} to="/adminlogin" className="hover:underline">
           <span>Admin</span>
