@@ -107,7 +107,7 @@ const AdminSignUpForm = () => {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="border-b bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary "
+                  className="border-b focus:outline-none bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary "
                   type="text"
                   placeholder="Name"
                   ref={nameRef}
@@ -126,7 +126,7 @@ const AdminSignUpForm = () => {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="border-b bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary "
+                  className="border-b focus:outline-none bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary "
                   type="email"
                   placeholder="Email"
                   ref={emailRef}
@@ -145,7 +145,7 @@ const AdminSignUpForm = () => {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="border-b bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary "
+                  className="border-b bg-secondary focus:outline-none text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary "
                   type="file"
                   ref={photoRef}
                   onChange={handleFileChange}
@@ -163,7 +163,7 @@ const AdminSignUpForm = () => {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="border-b bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary "
+                  className="border-b bg-secondary focus:outline-none text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary "
                   type="password"
                   placeholder="Password"
                   ref={passwordRef}

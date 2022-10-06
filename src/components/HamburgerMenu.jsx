@@ -10,7 +10,7 @@ const HamburgerMenu = () => {
   const tl = useRef()
   const timeline = gsap.timeline()
 
-  console.log(isOpen)
+  // console.log(isOpen)
 
   // animerar menyn beroende på ifall användaren klickat på menyn och isOpen är true eller false
   useEffect(() => {
@@ -34,7 +34,9 @@ const HamburgerMenu = () => {
       )
     }
 
+    // ska reversa animationen på menyn när man stänger, buggar dock
     if (!isOpen) {
+      // ska stängas tre gånger så snabbt
       timeline.timeScale(3)
       timeline.reverse()
     }
@@ -56,6 +58,18 @@ const HamburgerMenu = () => {
             }}
             as={Link}
             to="/admin"
+            onMouseEnter={(e) => {
+              gsap.to(e.target, {
+                opacity: 0.8,
+                x: "5%",
+              })
+            }}
+            onMouseLeave={(e) => {
+              gsap.to(e.target, {
+                opacity: 1,
+                x: 0,
+              })
+            }}
           >
             Admin
           </NavLink>
@@ -66,6 +80,18 @@ const HamburgerMenu = () => {
             }}
             as={Link}
             to="/suggestions"
+            onMouseEnter={(e) => {
+              gsap.to(e.target, {
+                opacity: 0.8,
+                x: "5%",
+              })
+            }}
+            onMouseLeave={(e) => {
+              gsap.to(e.target, {
+                opacity: 1,
+                x: 0,
+              })
+            }}
           >
             Suggest a bar
           </NavLink>

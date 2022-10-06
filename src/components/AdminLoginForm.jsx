@@ -93,7 +93,7 @@ const AdminLoginForm = () => {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="border-b bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary "
+                  className="border-b focus:outline-none bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary"
                   type="email"
                   placeholder="Email"
                   ref={emailRef}
@@ -112,7 +112,7 @@ const AdminLoginForm = () => {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="border-b bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary "
+                  className="border-b focus:outline-none bg-secondary text-primary text-sm  block w-full p-2.5  dark:border-gray-600 dark:placeholder-primary dark:text-primary "
                   type="password"
                   placeholder="Password"
                   ref={passwordRef}
@@ -144,7 +144,7 @@ const AdminLoginForm = () => {
                 )}
 
                 <Link
-                  className="text-accent focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                  className="text-accent focus:outline-none text-xl focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
                   type="button"
                   to="/adminsignup"
                 >
