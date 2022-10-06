@@ -26,12 +26,15 @@ const AuthContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false)
   const [admin, setAdmin] = useState(null)
 
+  const [filters, setFilters] = useState(null)
+
   /* State för om barlistan visas eller ej */
   const [barListShown, setBarListShown] = useState(false)
 
   let [searchParams, setSearchParams] = useSearchParams({
     lat: 55.5918775,
     lng: 13.0078026,
+    filter: filters,
   })
 
   const signup = async (email, password, name, photo) => {
@@ -120,6 +123,8 @@ const AuthContextProvider = ({ children }) => {
     searchParams,
     barListShown,
     setBarListShown,
+    filters,
+    setFilters,
   }
 
   return (

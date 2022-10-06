@@ -8,7 +8,7 @@ const HamburgerMenu = () => {
 
   return (
     <div className="sm:hidden">
-      <Hamburger color="#fbbf24" toggled={isOpen} toggle={setOpen} />
+      <Hamburger color="#fbbf24" toggled={isOpen} toggle={setOpen} rounded />
 
       {isOpen && (
         <div className="fixed text-accent bg-primary menu-container">

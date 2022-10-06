@@ -12,6 +12,7 @@ import BeerIcon from "../assets/images/beer-icon.png"
 import useGetCollection from "../hooks/useGetCollection"
 
 import SearchBar from "./SearchBar"
+import FilterDropdown from "./FilterDropdown"
 import BarButton from "./BarButton"
 import LocateMe from "./LocateMe"
 import FindDirections from "./FindDirections"
@@ -22,10 +23,11 @@ import { useAuthContext } from "../contexts/AuthContext"
 const BeerMap = () => {
   const { searchParams, barListShown } = useAuthContext()
 
-  const city = searchParams.get("city")
-
   /* State för användarens position */
   const [userLocation, setUserLocation] = useState("")
+
+  // här sparas den baren som användaren har klickat på och vill ha mer information om
+  const [selected, setSelected] = useState(null)
 
   /* Hämtar kartan */
   const { isLoaded } = useLoadScript({
@@ -36,6 +38,10 @@ const BeerMap = () => {
   /* Hämtar alla barer... */
   const { data: bars } = useGetCollection("bars")
 
+  /* Hämtar staden från URL:n om det finns en */
+  const city = searchParams.get("city")
+
+  /* Hämtar latitud och longitud från URL:n om det finns en */
   const latUrl = searchParams.get("lat")
   const lngUrl = searchParams.get("lng")
 
@@ -44,9 +50,6 @@ const BeerMap = () => {
     () => ({ lat: Number(latUrl), lng: Number(lngUrl) }),
     []
   )
-
-  // här sparas den baren som användaren har klickat på och vill ha mer information om
-  const [selected, setSelected] = useState(null)
 
   // referens till kartan
   const mapRef = useRef()
@@ -91,26 +94,11 @@ const BeerMap = () => {
       )}
 
       <div className="absolute flex flex-col justify-between items-center px-10 top-20 w-full sm:grid sm:grid-flow-col sm:items-stretch">
-        <div className="flex flex-col mt-1.5">
+        <div className="flex flex-col mt-2">
           {/* Funktion och komponent för att hitta den sökta position */}
           <SearchBar searchedLocation={panToSearchedLoaction} />
 
-          <div className="dropdown dropdown-hover z-20">
-            <label tabIndex={0} className="btn bg-primary m-1">
-              Hover
-            </label>
-            <ul
-              tabIndex={0}
-              className="dropdown-content menu p-2 shadow bg-primary rounded-box"
-            >
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li>
-                <a>Item 2</a>
-              </li>
-            </ul>
-          </div>
+          <FilterDropdown bars={bars} />
         </div>
 
         {/* Funktion och komponent för listan med barer */}
@@ -145,7 +133,6 @@ const BeerMap = () => {
                 onClick={() => {
                   setSelected(marker)
                 }}
-                className="hover:-translate-y-2"
               />
             ))
           : /* Om city däremot inte är null så filtrerar vi våra markörer efter stadens namn och mappar sedan ut en markör för varje bar i den staden */
@@ -163,7 +150,6 @@ const BeerMap = () => {
                   onClick={() => {
                     setSelected(filteredMarker)
                   }}
-                  className="hover:-translate-y-2"
                 />
               ))}
 
