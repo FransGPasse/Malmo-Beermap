@@ -105,10 +105,7 @@ const BeerMap = () => {
     <>
       {/* Om barlistan visas, lägg en div som blurrar kartan */}
       {barListShown && (
-        <div
-          ref={bgBlur}
-          className="fixed h-screen w-screen z-40 backdrop-blur-sm bg-gray-600/10"
-        ></div>
+        <div className="fixed h-screen w-screen z-40 backdrop-blur-sm bg-gray-600/10"></div>
       )}
 
       <div className="absolute flex flex-col justify-between items-center px-10 top-20 w-full sm:grid sm:grid-flow-col sm:items-stretch">
