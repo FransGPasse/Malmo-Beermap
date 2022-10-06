@@ -19,9 +19,6 @@ import FindDirections from "./FindDirections"
 
 import libraries from "../assets/mapLibraries"
 import { useAuthContext } from "../contexts/AuthContext"
-import { useEffect } from "react"
-
-import { gsap } from "gsap"
 
 const BeerMap = () => {
   const { searchParams, setSearchParams, setFilters, filters, barListShown } =
