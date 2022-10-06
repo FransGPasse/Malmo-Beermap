@@ -101,9 +101,6 @@ const BeerMap = () => {
     console.log("stäng")
   }
 
-  console.log("här har vi type", filterType)
-  console.log("här har vi type", filterProducts)
-
   return (
     <>
       {/* Om barlistan visas, lägg en div som blurrar kartan */}
