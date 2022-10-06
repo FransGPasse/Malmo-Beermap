@@ -17,7 +17,7 @@ import { useAuthContext } from "../contexts/AuthContext"
 
 const SearchBar = ({ searchedLocation }) => {
   /* Sätter det globala "state:t" till staden som vi sökt på. Har man sökt på en adress så sätter vi staden där adressen ligger i som state. */
-  const { setSearchParams } = useAuthContext()
+  const { setSearchParams, filters, setCity } = useAuthContext()
 
   // ready kollar ifall alla google-scripts är redo, vilket de är genom loadscript
   // value är värdet som användaren håller på att skriva in i sökboxen
@@ -47,12 +47,18 @@ const SearchBar = ({ searchedLocation }) => {
             const results = await getGeocode({ address })
             //Sätter location till första resultatet från sökningen
             const { lat, lng } = getLatLng(results[0])
+
+            //Sätter den sökta locationen till lat och long
             searchedLocation({ lat, lng })
 
             //Get the city connected to the chosen coordinates
             const data = await BeerMapAPI.getAddress(lat, lng)
 
-            setSearchParams({ city: data, lat, lng })
+            //Sätter staden till adressen från datan
+            await setCity(data)
+
+            //Sätter URL:n till stad, lat, lng och filter
+            setSearchParams({ city: data, lat, lng, filters })
           } catch (error) {
             // kanske en toastify här istället?
             console.log("Error: ", error)

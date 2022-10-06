@@ -26,16 +26,22 @@ const AuthContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false)
   const [admin, setAdmin] = useState(null)
 
-  const [filters, setFilters] = useState(null)
-
   /* State för om barlistan visas eller ej */
   const [barListShown, setBarListShown] = useState(false)
 
-  let [searchParams, setSearchParams] = useSearchParams({
-    lat: 55.5918775,
-    lng: 13.0078026,
-    filter: filters,
-  })
+  /* States för de olika filtrerna */
+  const [city, setCity] = useState("")
+  const [types, setTypes] = useState("")
+  const [products, setProducts] = useState("")
+
+  /* Variabel för den ursprungliga URL:n */
+  const URL = { lat: 55.5918775, lng: 13.0078026 }
+
+  /* Sätter våra searchParams till den ursprungliga URL:n */
+  const [searchParams, setSearchParams] = useSearchParams(URL)
+
+  /* State för samtliga filters samlade i ett */
+  const [filters, setFilters] = useState(searchParams.get("filters"))
 
   const signup = async (email, password, name, photo) => {
     //Create the user
@@ -123,6 +129,12 @@ const AuthContextProvider = ({ children }) => {
     searchParams,
     barListShown,
     setBarListShown,
+    city,
+    setCity,
+    products,
+    setProducts,
+    types,
+    setTypes,
     filters,
     setFilters,
   }

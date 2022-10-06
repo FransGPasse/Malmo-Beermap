@@ -1,6 +1,9 @@
-import React from "react"
+import React, { useEffect } from "react"
+import { useAuthContext } from "../contexts/AuthContext"
 
-const FilterDropdown = ({ bars }) => {
+const FilterDropdown = () => {
+  const { setSearchParams, filters, setFilters, city } = useAuthContext()
+
   const types = [
     "Divebar",
     "Cocktailbar",
@@ -10,54 +13,16 @@ const FilterDropdown = ({ bars }) => {
   ]
   const products = ["Craftbeer", "Local beer", "Cocktails", "Natural wines"]
 
+  /* När vi klickar på en produkt, sätt den som valt filter och sätt searchParams */
   const handleProducts = (e) => {
-    console.log(e.target.value)
-    setUrl({ ...url, city: city, product: e.target.value })
-
-    console.log(searchParams)
-
-    const filteredBars = bars
-      .filter((marker) => marker.product === e.target.value)
-      .map((filteredMarker) => (
-        <Marker
-          key={filteredMarker.name}
-          position={{
-            lat: filteredMarker.lat,
-            lng: filteredMarker.lng,
-          }}
-          animation={2}
-          onClick={() => {
-            setSelected(filteredMarker)
-          }}
-          className="hover:-translate-y-2"
-        />
-      ))
-    console.log(filteredBars)
+    setFilters(e.target.value)
+    setSearchParams({ city: city, filters: e.target.value })
   }
 
+  /* När vi klickar på en typ, sätt den som valt filter och sätt searchParams */
   const handleTypes = (e) => {
-    console.log(e.target.value)
-    setUrl({ ...url, city: city, type: e.target.value })
-
-    console.log(searchParams)
-
-    const filteredBars = bars
-      .filter((marker) => marker.type === e.target.value)
-      .map((filteredMarker) => (
-        <Marker
-          key={filteredMarker.name}
-          position={{
-            lat: filteredMarker.lat,
-            lng: filteredMarker.lng,
-          }}
-          animation={2}
-          onClick={() => {
-            setSelected(filteredMarker)
-          }}
-          className="hover:-translate-y-2"
-        />
-      ))
-    console.log(filteredBars)
+    setFilters(e.target.value)
+    setSearchParams({ city: city, filters: e.target.value })
   }
 
   return (
@@ -68,7 +33,7 @@ const FilterDropdown = ({ bars }) => {
         </label>
         <ul
           tabIndex={0}
-          className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+          className="dropdown-content menu p-2 shadow bg-primary rounded-box w-52"
         >
           {types.map((bar) => (
             <li key={bar}>
@@ -99,7 +64,7 @@ const FilterDropdown = ({ bars }) => {
         </label>
         <ul
           tabIndex={0}
-          className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+          className="dropdown-content menu p-2 shadow bg-primary rounded-box w-52"
         >
           {products.map((bar) => (
             <li key={bar}>

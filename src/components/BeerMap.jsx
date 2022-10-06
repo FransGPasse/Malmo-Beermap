@@ -19,9 +19,11 @@ import FindDirections from "./FindDirections"
 
 import libraries from "../assets/mapLibraries"
 import { useAuthContext } from "../contexts/AuthContext"
+import { useEffect } from "react"
 
 const BeerMap = () => {
-  const { searchParams, barListShown } = useAuthContext()
+  const { searchParams, setSearchParams, setFilters, filters, barListShown } =
+    useAuthContext()
 
   /* State för användarens position */
   const [userLocation, setUserLocation] = useState("")
@@ -38,12 +40,12 @@ const BeerMap = () => {
   /* Hämtar alla barer... */
   const { data: bars } = useGetCollection("bars")
 
-  /* Hämtar staden från URL:n om det finns en */
-  const city = searchParams.get("city")
-
   /* Hämtar latitud och longitud från URL:n om det finns en */
   const latUrl = searchParams.get("lat")
   const lngUrl = searchParams.get("lng")
+
+  /* Hämtar staden från URL:n om det finns en */
+  const city = searchParams.get("city")
 
   /* Mittenpunkten på kartan när den först laddas in */
   const center = useMemo(
@@ -83,6 +85,12 @@ const BeerMap = () => {
     mapRef.current.setZoom(17)
   }, [])
 
+  /* Sätter filter och våra searchParams när komponenten monteras */
+  useEffect(() => {
+    setFilters(filters)
+    setSearchParams(searchParams)
+  }, [filters, searchParams])
+
   /* Om kartan inte är laddad returnerar vi detta */
   if (!isLoaded) return <h1 className="text-4xl">Loading...</h1>
 
@@ -98,7 +106,7 @@ const BeerMap = () => {
           {/* Funktion och komponent för att hitta den sökta position */}
           <SearchBar searchedLocation={panToSearchedLoaction} />
 
-          <FilterDropdown bars={bars} />
+          <FilterDropdown />
         </div>
 
         {/* Funktion och komponent för listan med barer */}
@@ -123,7 +131,7 @@ const BeerMap = () => {
         )}
 
         {/* Om city är null (det vill säga om vi inte sökt på något eller hämtat vår position) så mappar vi ut en marker för varje bar med en ölikon på latituden/longituden från databasen */}
-        {!city
+        {!filters
           ? bars.map((marker) => (
               <Marker
                 key={marker.name}
@@ -137,7 +145,12 @@ const BeerMap = () => {
             ))
           : /* Om city däremot inte är null så filtrerar vi våra markörer efter stadens namn och mappar sedan ut en markör för varje bar i den staden */
             bars
-              .filter((marker) => marker.city === city)
+              .filter(
+                (marker) =>
+                  marker.city == filters ||
+                  marker.type == filters ||
+                  marker.product == filters
+              )
               .map((filteredMarker) => (
                 <Marker
                   key={filteredMarker.name}
